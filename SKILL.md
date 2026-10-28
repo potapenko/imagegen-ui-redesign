@@ -34,6 +34,14 @@ Work component by component:
 5. Capture the updated component.
 6. Capture the whole screen to ensure the component still works in context.
 
+For accepted-reference matching or precise alignment/spacing repair, read
+[From image analysis to a verified correction](docs/visual-fidelity-method.md).
+Use its sequence: visible discrepancy → measured relationship → verified cause
+in the owning layout/style → smallest correction → component and screen proof.
+It covers geometry, typography, cascade conflicts, constrained space and fresh
+runtime evidence. Use the parts relevant to the defect; do not add a second
+generic audit or impose another project's dimensions and workarounds.
+
 ## Coverage Loop
 
 For global redesign work, maintain a lightweight coverage ledger before each batch:

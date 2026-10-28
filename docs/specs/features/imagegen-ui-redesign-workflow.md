@@ -11,6 +11,9 @@ generated image as product truth or bypassing the target repo's design system.
 
 ## Scope
 
+Detailed reference matching and geometry repair also follow
+[Visual Fidelity Analysis](visual-fidelity.md).
+
 This spec covers:
 
 - skill trigger intent for ImageGen-guided UI redesign
