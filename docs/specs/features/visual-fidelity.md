@@ -1,9 +1,11 @@
 # Visual Fidelity Analysis
 
-- Node type: leaf; Status: Active; Revision: 1; Date: 2026-10-28.
+- Node type: leaf; Status: Active; Revision: 2; Date: 2026-10-29.
 - Authority: user requested capturing the successful image-analysis and
   implementation methods from the current component-polish task in this skill.
-- Applies when matching an accepted reference or correcting visible geometry.
+  The 2026-10-29 approval extends the visual workflow to SwiftUI and inline corrections.
+- Applies within the [design workflow's scope](imagegen-ui-redesign-workflow.md)
+  when matching an accepted reference or correcting visible geometry.
 - Does not prescribe a new design, target-specific dimensions or extra product states.
 
 ## Outcome
@@ -22,13 +24,13 @@ appearance, runtime measurements establish actual geometry, and source explains 
   measured discrepancy, owning layout/style and smallest supported correction.
   Distinguish verified cause from a hypothesis and from a new design proposal.
 - Prefer constraints that express the intended relationship over independent
-  offsets. Check computed styles, cascade, intrinsic sizing and scroll ownership
-  before adding overrides, fixed heights or new wrappers.
-- Separate CSS units, screenshot pixels and zoom. Separate glyph appearance,
-  text line box, painted control and hit target. Check padding/border arithmetic.
+  offsets. Check intrinsic sizing, scroll ownership and platform layout rules
+  (computed styles and cascade on Web) before adding overrides or wrappers.
+- Separate Web CSS units, native points, screenshot pixels and scale. Separate
+  glyph appearance, text line box, painted control and hit target. Check size arithmetic.
 - Reject generated changes to required content, hierarchy or actions; ImageGen
-  annotations do not override the accepted target or measured browser geometry.
-- Confirm the edited implementation reached the page and the relevant state
+  annotations do not override the accepted target or measured runtime geometry.
+- Confirm the edited implementation reached the target UI and the relevant state
   settled before measuring. A transient frame is not acceptance evidence.
 - Verify the corrected relation locally and in its containing screen. Select
   risky variants from the affected contract and actual changes, including long
@@ -42,7 +44,8 @@ appearance, runtime measurements establish actual geometry, and source explains 
 
 Executable procedure: [visual fidelity method](../../visual-fidelity-method.md).
 The main skill routes to it only for reference matching or detailed visual repair.
-Trigger scope, approval rules, batch coverage and existing tool policy stay intact.
+Its core loop owns image delivery and approvals; this method does not create a
+second acceptance process or trigger a redesign for a small prescribed edit.
 
 Review using the observed task examples: divider clearance, chevron alignment,
 composer height, border-inclusive anchoring, cascade conflicts and small-height fit.
