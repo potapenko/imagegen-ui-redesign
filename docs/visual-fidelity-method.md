@@ -72,7 +72,10 @@ coordinate system rather than treating these Web APIs as interchangeable.
 
 Supply the current crop and accepted reference with their roles labelled.
 Describe the observed mismatches and the relationships to preserve. Request the
-comparison sheet from SKILL.md, with annotations outside the product UI.
+four-region comparison sheet from SKILL.md: current/target above, separate
+preserve/change text panels below. Put explicit annotation copy in the prompt;
+arrow callouts alone are insufficient. Check both lower panels for readability
+and agreement with the visible corrections before accepting the output.
 Follow its Core Rule for inline delivery, approval and the correction loop;
 this diagnostic method does not replace those steps.
 Inspect hierarchy and content before judging polish: an attractive image may

@@ -38,7 +38,8 @@ Work component by component:
 1. Read the applicable product/design contracts and establish the component's
    purpose. Capture its current UI. For a new component use existing product
    references and tokens; state that no current implementation exists.
-2. Generate the proposed mockup from those references. Inspect it, show it inline
+2. Generate the annotated comparison sheet defined in the ImageGen Prompt Template
+   below, including its two lower text panels. Inspect it, show it inline
    in the current chat and obtain user acceptance before implementing new visual
    choices. Reuse a reference already accepted for this scope without reapproval.
 3. Implement the accepted design in real UI code. Capture the actual component
@@ -176,14 +177,31 @@ For an existing component use edit mode with its screenshot as input. For a new
 design use product references and tokens, without fabricating a current capture.
 Keep the prompt with the component's transient evidence.
 
-Default to a comparison sheet: **current UI on the left, proposed correction
-on the right**. Use the user's language for captions, for example
-«Сейчас — ориентир» and «Предлагаемое исправление — макет». Keep the same
-viewport, content, state and scale; annotate intentional dimension changes.
-Responsive or long-content variants can use another row or sheet with the same
-comparison structure. Adapt this format when the user requests a different one.
-For a new design with no current UI, show the proposed component in its intended
-context and identify the supplied product references separately.
+Unless the user explicitly asks for another format, **every component design and
+correction prompt must request all four regions inside the returned image**:
+
+1. **Upper left — current reference.** Caption «Сейчас — ориентир» in Russian.
+2. **Upper right — target.** Use «По принятому макету» for an already accepted
+   reference, or «Предлагаемое исправление — макет» for an unaccepted proposal.
+3. **Lower left — «Сохраняем».** A readable text panel naming the concrete
+   content, state, behavior and visual properties that stay unchanged.
+4. **Lower right — «Меняем».** A readable text panel naming each bounded change
+   with explicit verbs: «Убираем», «Заменяем», «Переносим», «Выравниваем».
+
+Translate these captions into the user's language. Write the exact annotation
+copy before calling ImageGen and include it in the prompt; do not leave it to
+ImageGen to invent the rationale. Use concise component-specific statements,
+usually 3–6 per panel, fewer when sufficient. Do not pad the list with generic
+claims such as "cleaner design". Include material constraints and why a change
+helps only when grounded in the user's request or accepted target.
+
+The two lower panels are required visible image content, not optional chat
+commentary. Dimension arrows, callouts or prose beside the image do not replace
+them. Reserve enough space for the notes without shrinking or clipping the UI.
+Match viewport, content, state and scale between the two upper regions; annotate
+intentional dimension changes. Longer variants may use separate complete sheets.
+For a new design with no current UI, label the left as product references and
+the lower panels as inherited constraints / new proposals; never fabricate a before.
 
 For fidelity work, also pass the accepted component reference. Name the observed
 mismatches: divider clearance, equal control heights, chevron centring, text
@@ -192,12 +210,17 @@ not a new visual direction. Put measurements and callouts outside the product UI
 Use governing Web dimensions or native point-based layout constraints; check
 size arithmetic. Preserve SwiftUI system controls, typography, safe areas and
 supported adaptations. Generated annotations are proposals, not measurements.
+Supply only established dimensions with explicit units and status: measured,
+accepted target, or proposal. Omit unknown numbers; do not infer a fixed maximum
+from a screenshot or copy a previous component's dimensions into a new task.
 
 ImageGen may redraw the left column: the sheet is a comparison **mockup**, not
 literal before/after evidence. Preserve the original capture. After coding,
 show the real before and real after captures with matching framing, and compare
 the actual after against the accepted reference. Do not substitute a generated
 «after» for a running implementation or claim pixel-perfect fidelity from it.
+Never label an ImageGen-redrawn panel «реальный скриншот». A source screenshot
+supplied as input does not make the generated comparison a real capture.
 
 ```text
 Use case: ui-mockup
@@ -206,11 +229,26 @@ Primary request: <Correct fidelity to the accepted reference, or redesign within
 Component purpose: <what this component does>
 Primary user decision: <what the user must decide or accomplish>
 Inputs: <real current crop when it exists; product/accepted references with each role identified>
-Output: <existing UI: current left and proposed correction right, matching scale/state/content; new design: proposed component in context, without a fabricated before>
-Captions: <user-language labels distinguishing reference illustration from proposed mockup>
+Required output layout: four regions in one image, not two UI pictures alone.
+Upper left: <current reference; product references only when no implementation exists>.
+Upper right: <accepted target or proposed correction>, matching scale/state/content.
+Upper captions (verbatim): <current-reference caption> / <accepted-target or proposal caption>.
+Lower left panel heading (verbatim): "Сохраняем" <translate to the user's language>.
+Lower left panel text (verbatim):
+- <concrete item/state/behavior/visual property to preserve>
+- <remaining relevant invariants>
+Lower right panel heading (verbatim): "Меняем" <translate to the user's language>.
+Lower right panel text (verbatim):
+- <Remove/replace/move/align the named element; intended result>
+- <remaining authorized corrections and constraints>
+Render BOTH lower panels visibly INSIDE the image beneath their respective UI
+regions. Do not omit, merge, crop, paraphrase or replace them with arrows alone.
+Keep notes legible at normal viewing size; reserve space without shrinking the UI.
+Footer (verbatim): <localized "Comparison mockup — not a runtime screenshot">.
 Observed discrepancies: <specific visible problems, not generic polish requests>
 Target geometry: <governing dimensions and units, spacing, typography and radii for this platform>
-Annotations: outside the UI; identify corrected differences and intentional size changes.
+Additional callouts: outside the product UI; only grounded differences/dimensions.
+They supplement, never replace, the two lower text panels.
 Keep: <same data, labels, states, actions, safety boundaries>
 Improve:
 - hierarchy and scan path;
@@ -244,11 +282,19 @@ rerun with a narrower prompt; do not silently omit the rejected correction.
 
 Evaluate each reference before touching code:
 
+- both lower preserve/change panels are present, readable, consistent with the
+  supplied copy and illustrated differences; missing, clipped or contradictory
+  panels fail the output format even if the UI mockup itself looks good;
 - what hierarchy or grouping is better than the current UI;
 - which details were demoted, collapsed, or moved closer to the related action;
 - whether the reference preserves the real decision, state, count, and safety boundary;
 - which visual ideas conflict with the app's design system and must be ignored;
 - whether a second ImageGen pass is needed with a narrower component crop.
+
+For a failed annotation format, show the output as rejected and request a bounded
+correction that preserves the UI proposal and restores the exact missing text/layout.
+Do not compensate only with chat prose or silently relax the format. If the retry
+cannot deliver the required sheet, report that gap instead of claiming compliance.
 
 ## Implementation Rules
 

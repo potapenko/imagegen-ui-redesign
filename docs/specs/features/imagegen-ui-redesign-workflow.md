@@ -1,19 +1,17 @@
 # ImageGen UI Design and Correction Workflow
 
-- Node type: leaf; Status: Active; Revision: 2026-10-29.
+- Node type: leaf; Status: Active; Revision: 2026-10-30.
 - Authority: user's 2026-10-29 approval in the UI-instructions audit chat to
   require the visual correction loop, inline delivery and SwiftUI coverage,
   exclude backend work and minor edits, and remove contradictions without scripts.
-- Change: Evolve the existing component workflow; preserve product behavior,
-  design-system boundaries and proportional verification.
+- Annotation authority: on 2026-10-30 the user requested that prompts require
+  the illustrated comparison format with explicit lower preserve/change blocks.
 
 ## Scope
 
-Use for new visual designs and substantial visual corrections/redesigns that
-require composition, hierarchy or other material design choices, on Web and
-native SwiftUI surfaces. Complexity is the visual decision, not the line count.
-Backend-only work, behavior-neutral refactoring and small prescribed UI edits
-without a new design choice do not enter this loop. They retain focused checks.
+Use for new Web/SwiftUI designs and substantial composition/hierarchy corrections.
+Backend work, behavior-neutral refactoring and small prescribed UI edits without
+new design choices retain focused checks; line count does not determine scope.
 Detailed matching follows [Visual Fidelity Analysis](visual-fidelity.md).
 
 ## Design and correction loop
@@ -24,8 +22,7 @@ Detailed matching follows [Visual Fidelity Analysis](visual-fidelity.md).
 2. Generate a mockup, inspect it and show it inline in the current chat. Obtain
    user acceptance before implementing a new visual choice; reuse an already
    accepted reference instead of requesting the same approval again.
-3. Implement the accepted design, then capture the real component and containing
-   screen in the relevant runtime. Match state, content, theme and dimensions.
+3. Implement, then capture the real component/screen at matching state/theme/scale.
 4. Send that real implementation capture and accepted reference to ImageGen for
    targeted visual correction. Show every returned design/correction image inline
    with a short explanation, including rejected outputs labelled as unsuitable.
@@ -33,8 +30,7 @@ Detailed matching follows [Visual Fidelity Analysis](visual-fidelity.md).
 5. Check proposed corrections against the accepted target and real evidence.
    Apply fidelity fixes within existing authority; obtain acceptance for any new
    material visual choice. Reject invented behavior, content and incompatible styling.
-6. Capture and compare again after fixes. Repeat the correction loop for remaining
-   substantive mismatches; do not invent changes or impose an arbitrary pass count.
+6. Recapture after fixes; repeat for substantive mismatches, without a fixed pass count.
 7. Show the actual final implementation inline. Complete only when scoped visual
    discrepancies and affected states have been verified; disclose any unmet checks.
 
@@ -46,12 +42,28 @@ Detailed matching follows [Visual Fidelity Analysis](visual-fidelity.md).
   separately authorized. Do not promote raw technical identifiers to primary meaning.
 - Use component crops; a whole-screen redesign input is appropriate only when the
   requested component is the screen shell. Verify the containing screen afterward.
-- Default correction format is current UI left / proposed correction right, in
-  the user's language, with matched framing and callouts outside the product UI.
-  ImageGen can redraw either side: preserve original captures as actual evidence.
-- Preserve the target design system, tokens, icons and platform controls. Native
-  SwiftUI proof comes from the app or appropriate Simulator, not a browser recreation.
-  Browser-specific CSS or console checks do not become native requirements.
+- Unless the user requests another format, each existing-component design or
+  correction sheet must show current UI on the upper left and the target on the
+  upper right, at matching scale/state/content. Below them, inside the image,
+  place two readable text panels: preserve on the left, change on the right.
+  Use the user's language; for Russian use «Сохраняем» / «Меняем» and concrete
+  verbs such as «Убираем», «Заменяем», «Переносим». Arrow callouts and chat prose
+  do not substitute for these lower panels. Prepare their exact copy in the prompt.
+- Use «По принятому макету» only for an accepted target; otherwise label it a
+  proposal. For a new component, label the left side as product references, not
+  a fabricated current implementation; retain the lower inherited/new-choice notes.
+- Annotations describe the visible component, preserved behavior and authorized
+  differences, not generic praise or invented requirements. Dimensions must carry
+  supplied units and known status (measured, accepted, or proposed); never turn
+  generated numbers or one example's constants into binding product constraints.
+- Missing, illegible or contradictory lower panels make the sheet incomplete.
+  Show it as rejected and request a bounded layout/text correction with the same
+  design and copy; never silently accept it or replace the missing panel in chat.
+  If generation remains unavailable/unsuccessful, retain the explicit gap.
+- ImageGen can redraw either side: label the sheet as a mockup, never its redraw
+  as a real screenshot. Preserve original captures as actual evidence.
+- Preserve the design system and platform controls. SwiftUI proof comes from the
+  app/Simulator; browser recreation, CSS and console checks cannot replace it.
 - Target instructions govern tools, approvals and verification. Use relevant
   build and visible-state checks; presentation changes alone do not require logic suites.
 - For global work keep coverage by screen, viewport, processed/current/remaining
@@ -66,7 +78,6 @@ Detailed matching follows [Visual Fidelity Analysis](visual-fidelity.md).
   repository artifact directories. Transient non-image evidence follows its own policy.
 - If ImageGen is unavailable, report the limitation and keep dependent design work
   pending; do not silently substitute an agent-invented design or claim the loop passed.
-- Bound external attempts; retry only the affected component and reuse valid outputs.
 - If the UI cannot run, existing references can support design work, but they cannot
   establish implementation acceptance. Report the exact missing runtime evidence.
 - Clipping, overlap, misleading actions or hidden required state prevent acceptance.
@@ -75,10 +86,14 @@ Detailed matching follows [Visual Fidelity Analysis](visual-fidelity.md).
 
 ## Verification mapping
 
-Check `SKILL.md`, its visual-fidelity method and `agents/openai.yaml` against this
-contract. Review routing with new Web/SwiftUI designs, substantial visual repair,
-minor prescribed edits and backend-only tasks. Check draft → accepted reference →
-real capture → displayed correction → verified actual result, including rejected
-corrections and new design choices. Validate Markdown links and YAML; use a real
-downstream task for behavioral validation when authorized. Instruction validation
-alone is not an independent end-to-end UI acceptance test. No helper scripts are added.
+Check the skill, fidelity method, metadata and copied prompts for consistent scope,
+inline delivery and four-region instructions. Validate links/YAML; inspect returned
+images for legible, accurate lower panels and honest capture/measurement labels.
+Review existing/new components and accepted/proposed targets without widening scope.
+Instruction validation alone is not independent end-to-end UI acceptance.
+
+2026-10-30: a live ImageGen format probe using the existing header references
+returned both upper comparisons, all supplied preserve/change bullets in separate
+lower panels, and the mockup footer. Shown inline; images retained in system temp
+`imagegen-annotation-skill-i0f_biir` and tool-managed originals. This one generation
+verifies the template example, not universal compliance by other agents.
