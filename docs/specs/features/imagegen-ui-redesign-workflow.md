@@ -1,11 +1,11 @@
 # ImageGen UI Design and Correction Workflow
 
-- Node type: leaf; Status: Active; Revision: 2026-10-30.
+- Node type: leaf; Status: Active; Revision: 2026-10-30.2.
 - Authority: user's 2026-10-29 approval in the UI-instructions audit chat to
   require the visual correction loop, inline delivery and SwiftUI coverage,
   exclude backend work and minor edits, and remove contradictions without scripts.
 - Annotation authority: on 2026-10-30 the user requested that prompts require
-  the illustrated comparison format with explicit lower preserve/change blocks.
+  lower preserve/change blocks, then drafting-style dimensions and guide lines.
 
 ## Scope
 
@@ -42,10 +42,8 @@ Detailed matching follows [Visual Fidelity Analysis](visual-fidelity.md).
   separately authorized. Do not promote raw technical identifiers to primary meaning.
 - Use component crops; a whole-screen redesign input is appropriate only when the
   requested component is the screen shell. Verify the containing screen afterward.
-- Unless the user requests another format, each existing-component design or
-  correction sheet must show current UI on the upper left and the target on the
-  upper right, at matching scale/state/content. Below them, inside the image,
-  place two readable text panels: preserve on the left, change on the right.
+- Unless the user requests another format, show matched current/target views
+  above and two readable preserve/change text panels below, inside the image.
   Use the user's language; for Russian use «Сохраняем» / «Меняем» and concrete
   verbs such as «Убираем», «Заменяем», «Переносим». Arrow callouts and chat prose
   do not substitute for these lower panels. Prepare their exact copy in the prompt.
@@ -56,7 +54,12 @@ Detailed matching follows [Visual Fidelity Analysis](visual-fidelity.md).
   differences, not generic praise or invented requirements. Dimensions must carry
   supplied units and known status (measured, accepted, or proposed); never turn
   generated numbers or one example's constants into binding product constraints.
-- Missing, illegible or contradictory lower panels make the sheet incomplete.
+- Both upper views must also have drafting-style overlays: dimension arrows with
+  extension lines, labelled region brackets and relevant alignment guides.
+  Prepare an explicit callout list (panel, endpoints, label, units/status).
+  Unknown sizes use relational labels, not guessed numbers. Lower prose cannot
+  replace these marks; keep lines legible and clear of product text/actions.
+- Missing, illegible or contradictory lower panels or drafting marks fail the sheet.
   Show it as rejected and request a bounded layout/text correction with the same
   design and copy; never silently accept it or replace the missing panel in chat.
   If generation remains unavailable/unsuccessful, retain the explicit gap.
@@ -78,8 +81,7 @@ Detailed matching follows [Visual Fidelity Analysis](visual-fidelity.md).
   repository artifact directories. Transient non-image evidence follows its own policy.
 - If ImageGen is unavailable, report the limitation and keep dependent design work
   pending; do not silently substitute an agent-invented design or claim the loop passed.
-- If the UI cannot run, existing references can support design work, but they cannot
-  establish implementation acceptance. Report the exact missing runtime evidence.
+- If UI cannot run, report the missing runtime proof; references cannot replace it.
 - Clipping, overlap, misleading actions or hidden required state prevent acceptance.
 - Report actual processed scope, images, changed files, verification and remaining
   gaps. A turn boundary or blocker never turns partial work into a completed redesign.
@@ -88,12 +90,11 @@ Detailed matching follows [Visual Fidelity Analysis](visual-fidelity.md).
 
 Check the skill, fidelity method, metadata and copied prompts for consistent scope,
 inline delivery and four-region instructions. Validate links/YAML; inspect returned
-images for legible, accurate lower panels and honest capture/measurement labels.
+images for lower panels, drafting marks and honest capture/measurement labels.
 Review existing/new components and accepted/proposed targets without widening scope.
 Instruction validation alone is not independent end-to-end UI acceptance.
 
-2026-10-30: a live ImageGen format probe using the existing header references
-returned both upper comparisons, all supplied preserve/change bullets in separate
-lower panels, and the mockup footer. Shown inline; images retained in system temp
-`imagegen-annotation-skill-i0f_biir` and tool-managed originals. This one generation
-verifies the template example, not universal compliance by other agents.
+2026-10-30: two live probes of the [copyable prompt](../../../prompts/annotated-comparison.md)
+rendered drafting marks and lower panels. Both were shown and rejected for gap-arrow
+endpoint errors; the retry improved placement but did not establish geometry fidelity.
+Images remain in temp `imagegen-drafting-skill-fgrjqvuo` and tool-managed storage.

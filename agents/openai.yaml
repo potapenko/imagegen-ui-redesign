@@ -1,4 +1,4 @@
 interface:
   display_name: "ImageGen UI Redesign"
   short_description: "Web and SwiftUI design with visible correction loops"
-  default_prompt: "Use $imagegen-ui-redesign for this new design or substantial visual correction: show current/target comparisons with mandatory lower Preserve/Change annotation panels inside every mockup and correction, obtain design acceptance, and verify and show the real Web or SwiftUI result."
+  default_prompt: "Use $imagegen-ui-redesign for this new design or substantial visual correction: show current/target comparisons with mandatory drafting arrows, extension/alignment lines, labelled regions and lower Preserve/Change panels; obtain design acceptance, then verify and show the real Web or SwiftUI result."

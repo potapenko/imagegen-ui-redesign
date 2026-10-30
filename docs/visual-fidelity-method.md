@@ -74,8 +74,11 @@ Supply the current crop and accepted reference with their roles labelled.
 Describe the observed mismatches and the relationships to preserve. Request the
 four-region comparison sheet from SKILL.md: current/target above, separate
 preserve/change text panels below. Put explicit annotation copy in the prompt;
-arrow callouts alone are insufficient. Check both lower panels for readability
-and agreement with the visible corrections before accepting the output.
+include the mandatory drafting block from
+[the comparison template](../prompts/annotated-comparison.md). List each dimension
+arrow's endpoints and supplied value/status, region bracket and relevant guide.
+Arrows alone cannot replace lower panels; lower panels cannot replace arrows.
+Check both layers for readability and agreement with the visible corrections.
 Follow its Core Rule for inline delivery, approval and the correction loop;
 this diagnostic method does not replace those steps.
 Inspect hierarchy and content before judging polish: an attractive image may

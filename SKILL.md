@@ -39,7 +39,7 @@ Work component by component:
    purpose. Capture its current UI. For a new component use existing product
    references and tokens; state that no current implementation exists.
 2. Generate the annotated comparison sheet defined in the ImageGen Prompt Template
-   below, including its two lower text panels. Inspect it, show it inline
+   below, including drafting marks and both lower text panels. Inspect it, show it inline
    in the current chat and obtain user acceptance before implementing new visual
    choices. Reuse a reference already accepted for this scope without reapproval.
 3. Implement the accepted design in real UI code. Capture the actual component
@@ -203,6 +203,16 @@ intentional dimension changes. Longer variants may use separate complete sheets.
 For a new design with no current UI, label the left as product references and
 the lower panels as inherited constraints / new proposals; never fabricate a before.
 
+**Drafting overlay is also mandatory, not an optional decoration.** Before every
+comparison/correction generation, read and fill the copyable
+[annotated comparison prompt](prompts/annotated-comparison.md). Both upper views
+must have dimension arrows with extension lines, labelled region brackets and
+the alignment guides relevant to the task. Supply a callout list identifying
+each panel, element/edge pair, label and measurement status. Use relational
+labels when numbers are unknown. Do not remove the graphical layer just because
+the lower notes already mention spacing or dimensions. A specific user-requested
+format may override this; an agent's preference for a cleaner sheet may not.
+
 For fidelity work, also pass the accepted component reference. Name the observed
 mismatches: divider clearance, equal control heights, chevron centring, text
 baseline, padding, radius, typography or clipping. Ask for targeted correction,
@@ -247,8 +257,10 @@ Keep notes legible at normal viewing size; reserve space without shrinking the U
 Footer (verbatim): <localized "Comparison mockup — not a runtime screenshot">.
 Observed discrepancies: <specific visible problems, not generic polish requests>
 Target geometry: <governing dimensions and units, spacing, typography and radii for this platform>
-Additional callouts: outside the product UI; only grounded differences/dimensions.
-They supplement, never replace, the two lower text panels.
+Mandatory drafting overlay: use the filled block from prompts/annotated-comparison.md.
+Draw double-ended dimension arrows, extension lines, labelled region brackets and
+relevant dashed alignment guides around BOTH upper views. Use only the supplied
+labels/values. Lower annotations cannot substitute for this graphical layer.
 Keep: <same data, labels, states, actions, safety boundaries>
 Improve:
 - hierarchy and scan path;
@@ -285,6 +297,9 @@ Evaluate each reference before touching code:
 - both lower preserve/change panels are present, readable, consistent with the
   supplied copy and illustrated differences; missing, clipped or contradictory
   panels fail the output format even if the UI mockup itself looks good;
+- each requested drafting mark is visible on its named panel, spans the stated
+  edges/regions and has the correct label/status; lower text about geometry alone
+  is a failure, as are invented dimensions or misleading arrow endpoints;
 - what hierarchy or grouping is better than the current UI;
 - which details were demoted, collapsed, or moved closer to the related action;
 - whether the reference preserves the real decision, state, count, and safety boundary;

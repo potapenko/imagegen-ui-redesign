@@ -1,0 +1,87 @@
+# Annotated comparison — copyable ImageGen prompt block
+
+Read before each comparison/correction generation. Fill the fields from the
+current task, then append this block to the main skill prompt. It supplements
+the required current/target views and lower Preserve/Change panels.
+
+Prepare a short callout list before invoking ImageGen. Each entry specifies:
+`panel | feature | endpoints/regions | exact label | basis`.
+Basis is measured current geometry, accepted target, explicit proposal, or a
+qualitative relation. Use CSS px for Web, pt for native layouts; raster pixels
+are a separate unit. Never infer real dimensions from a generated reference.
+
+```text
+MANDATORY GRAPHICAL LAYER — ENGINEERING DRAWING ANNOTATIONS
+This must be an annotated comparison sheet, not a clean UI mockup with prose alone.
+Keep the UI and the lower Preserve/Change text panels from the main prompt.
+Reserve a clear annotation band above, below and beside EACH upper UI view.
+
+Draw the following graphical elements visibly inside the image:
+1. Thin double-ended dimension arrows with perpendicular extension/witness lines
+   attached to the named edges, for the supplied heights, widths, insets or gaps.
+   Place each supplied label next to its dimension line, outside the product UI.
+2. Brackets or separate dimension segments beneath the UI identifying its major
+   layout regions. Label each region; do not present a region span as a measured
+   numeric width unless that width was supplied.
+3. Dashed centerline/baseline/alignment guides for the relationships named below.
+   Connect compared edges or centers; distinguish text baseline from box center.
+4. Short leader lines from explanatory callouts to the exact relevant elements.
+   Do not draw arrows through labels, icons or actions, or obscure either UI view.
+Gap arrows span EMPTY space only, never any part of a logo, label or control.
+Region brackets cover the entire named region. Interrupt alignment guides through
+the UI if they would cross text; endpoints remain visibly tied to the named edges.
+
+Drawing convention: magenta dimension arrows/extension lines, blue region brackets
+and alignment guides, neutral explanatory text. These are annotation colors only;
+preserve the product palette. A supplied annotation reference may set other colors.
+Use the same convention on left and right; do not infer precision from line length.
+
+Required callouts (render every applicable entry; exact labels supplied here):
+<LEFT | feature | endpoint A ↔ endpoint B | label | measured/accepted/proposed/relation>
+<RIGHT | feature | endpoint A ↔ endpoint B | label | measured/accepted/proposed/relation>
+<BOTH | regions | ordered named segments | labels | qualitative relation>
+<panel | alignment | named centers/baselines/edges | label | qualitative relation>
+<panel | changed detail | leader endpoint | exact explanation | accepted/proposed>
+
+Numbers and units: render only the supplied values. Preserve their basis in the
+label or a small legend. If a value is unknown, draw the bracket/guide and use its
+supplied relational label, e.g. "equal gaps", "available width", "content-sized".
+Do not estimate pixels, add plausible-looking dimensions or convert units yourself.
+Illustrate responsive relationships; do not turn an example height into a fixed cap.
+
+Both upper views need visible drafting marks, even when their notes describe the
+same relationships. Keep the two lower panels fully readable and separate.
+Do not replace the drawing layer with a table, bullet list or a blueprint grid.
+If space is tight, enlarge the surrounding annotation area instead of hiding marks,
+shrinking UI text, cropping notes or moving the explanation into chat commentary.
+Footer: <localized "Comparison mockup; dimensions supplied, rendering schematic">.
+```
+
+## Filled example fragment — compact header
+
+These are historical example inputs, not defaults for other components. Use only
+when the current task supplies these values. Do not copy the old generated logo
+width of approximately 96 px: it was not a verified measurement.
+
+```text
+LEFT | header height | top ↔ bottom of header | "44 CSS px — measured" | measured
+RIGHT | header height | top ↔ bottom of header | "44 CSS px — target" | accepted
+BOTH | horizontal insets | outer edge ↔ content start/end | "8 CSS px" |
+       left measured / right accepted; include those statuses in a small legend
+LEFT | regions | logo / current selectors / ellipsis | "Logo / Selection / Menu" | relation
+RIGHT | regions | logo / flexible context area / Menu button |
+        "Logo / Remaining space / Menu" | relation; no invented region widths
+RIGHT | centering | context button ↔ both edges of remaining space |
+        "equal free gaps" | relation; show paired horizontal spans and a dashed centerline
+RIGHT | changed detail | leader to text Menu button | "Replace ellipsis with text" | accepted
+```
+
+## Output check
+
+Check the returned image against the callout list and both lower panels. Missing
+arrows, extension lines or requested guides, invented values, wrong endpoints and
+unreadable labels fail the format. Show that output inline as rejected; request a
+targeted correction preserving the UI and restoring only the missing/wrong marks.
+If a bounded retry still has wrong endpoints, keep the output rejected and report
+the remaining defect; the presence of arrows is not a successful geometry check.
+The diagram communicates constraints; actual runtime measurement verifies them.
