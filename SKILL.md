@@ -195,6 +195,24 @@ usually 3–6 per panel, fewer when sufficient. Do not pad the list with generic
 claims such as "cleaner design". Include material constraints and why a change
 helps only when grounded in the user's request or accepted target.
 
+**The lower panels must be usable implementation instructions.** For each material
+geometry/typography correction, supply `element/property: current → target; delta
+and direction; purpose/check`. Include units and distinguish measured current
+values, source declarations, accepted targets and proposals. Calculate the delta
+before generation, only between comparable quantities. Put the numbers INSIDE
+the lower panel too; dimension arrows alone do not satisfy this requirement.
+Preserve key unchanged dimensions explicitly in «Сохраняем». Do not shorten
+«gap 4 → 8 CSS px; increase by 4 px» to «improve spacing» or «center the control».
+
+For adaptive layout, specify the rule/formula and its anchor: for example, equal
+free space inside the remaining container, or maximum height derived from viewport
+bottom minus panel top and the accepted bottom inset. Do not replace the rule with
+a fixed offset/height measured at one size. If the current value is unknown, measure
+it when available; otherwise state it is unknown and omit the delta. A new element
+has no previous value, not zero. Non-geometric changes use the relevant value or
+behavior description instead of invented pixels. Keep all material corrections;
+split a crowded sheet rather than dropping the quantitative details.
+
 The two lower panels are required visible image content, not optional chat
 commentary. Dimension arrows, callouts or prose beside the image do not replace
 them. Reserve enough space for the notes without shrinking or clipping the UI.
@@ -245,19 +263,23 @@ Upper right: <accepted target or proposed correction>, matching scale/state/cont
 Upper captions (verbatim): <current-reference caption> / <accepted-target or proposal caption>.
 Lower left panel heading (verbatim): "Сохраняем" <translate to the user's language>.
 Lower left panel text (verbatim):
-- <concrete item/state/behavior/visual property to preserve>
+- <element/property: known unchanged value + unit, or preserved behavior>
 - <remaining relevant invariants>
 Lower right panel heading (verbatim): "Меняем" <translate to the user's language>.
 Lower right panel text (verbatim):
-- <Remove/replace/move/align the named element; intended result>
-- <remaining authorized corrections and constraints>
+- <element/property: current → target + unit; signed delta/direction; purpose/check>
+- <adaptive property: exact relationship/formula and anchors; verification condition>
+- <non-geometric edit: concrete replacement/behavior, without invented pixel values>
+Use supplied values verbatim, retain their measurement/authority labels, and keep
+every material change. Unknown current value: say so and omit an exact delta.
+Lower notes must include quantitative recipes, not merely repeat the design intent.
 Render BOTH lower panels visibly INSIDE the image beneath their respective UI
 regions. Do not omit, merge, crop, paraphrase or replace them with arrows alone.
 Keep notes legible at normal viewing size; reserve space without shrinking the UI.
 Footer (verbatim): <localized "Comparison mockup — not a runtime screenshot">.
 Observed discrepancies: <specific visible problems, not generic polish requests>
 Target geometry: <governing dimensions and units, spacing, typography and radii for this platform>
-Mandatory drafting overlay: use the filled block from prompts/annotated-comparison.md.
+Mandatory recipe and drafting overlay: use both filled blocks from prompts/annotated-comparison.md.
 Draw double-ended dimension arrows, extension lines, labelled region brackets and
 relevant dashed alignment guides around BOTH upper views. Use only the supplied
 labels/values. Lower annotations cannot substitute for this graphical layer.
@@ -300,6 +322,9 @@ Evaluate each reference before touching code:
 - each requested drafting mark is visible on its named panel, spans the stated
   edges/regions and has the correct label/status; lower text about geometry alone
   is a failure, as are invented dimensions or misleading arrow endpoints;
+- lower notes preserve the supplied before/target/delta or adaptive rule, with
+  correct arithmetic, units and basis. Missing material values, inconsistent
+  arrows, or replacing concrete corrections with vague intent fails the sheet;
 - what hierarchy or grouping is better than the current UI;
 - which details were demoted, collapsed, or moved closer to the related action;
 - whether the reference preserves the real decision, state, count, and safety boundary;

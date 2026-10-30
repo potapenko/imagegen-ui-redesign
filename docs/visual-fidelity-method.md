@@ -38,6 +38,17 @@ what is wrong; inspect its owning layout and, on Web, computed styles to establi
 why. If the target is missing, keep a proposed design choice separate and follow approval
 rules. Do not invent a requirement simply to fill the measurement table.
 
+Convert each material finding into the lower-panel implementation recipe:
+`element/property | current + evidence | target + authority | delta/direction or
+adaptive rule | purpose/check`. Compute numeric deltas in the same units, state
+and coordinate system before calling ImageGen. A declared padding is not the
+rendered outer gap; compare like quantities. Carry important unchanged dimensions
+into Preserve, and retain exact values/rules in Change rather than generic verbs.
+For an unknown baseline, measure it when possible or label it unknown without a
+delta. For responsive layout, describe the relationship and anchors instead of
+freezing one screenshot's result. Share this data with drafting callouts so the
+image cannot silently prescribe two different target values.
+
 ## 4. Diagnose relationships, then edit their owner
 
 For SwiftUI, inspect the owning stacks/grids, alignment guides, frames, padding,

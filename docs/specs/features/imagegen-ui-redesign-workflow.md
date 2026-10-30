@@ -1,11 +1,11 @@
 # ImageGen UI Design and Correction Workflow
 
-- Node type: leaf; Status: Active; Revision: 2026-10-30.2.
+- Node type: leaf; Status: Active; Revision: 2026-10-30.3.
 - Authority: user's 2026-10-29 approval in the UI-instructions audit chat to
   require the visual correction loop, inline delivery and SwiftUI coverage,
   exclude backend work and minor edits, and remove contradictions without scripts.
 - Annotation authority: on 2026-10-30 the user requested that prompts require
-  lower preserve/change blocks, then drafting-style dimensions and guide lines.
+  lower preserve/change blocks, drafting marks and numeric implementation recipes.
 
 ## Scope
 
@@ -50,10 +50,10 @@ Detailed matching follows [Visual Fidelity Analysis](visual-fidelity.md).
 - Use «По принятому макету» only for an accepted target; otherwise label it a
   proposal. For a new component, label the left side as product references, not
   a fabricated current implementation; retain the lower inherited/new-choice notes.
-- Annotations describe the visible component, preserved behavior and authorized
-  differences, not generic praise or invented requirements. Dimensions must carry
-  supplied units and known status (measured, accepted, or proposed); never turn
-  generated numbers or one example's constants into binding product constraints.
+- Lower notes follow the [numeric correction contract](visual-fidelity.md): property,
+  current → target, delta/direction or responsive rule, units and known authority.
+  Preserve relevant unchanged values too. Do not invent precision or replace an
+  actionable recipe with generic intent; arrows and lower notes must agree.
 - Both upper views must also have drafting-style overlays: dimension arrows with
   extension lines, labelled region brackets and relevant alignment guides.
   Prepare an explicit callout list (panel, endpoints, label, units/status).

@@ -1,9 +1,10 @@
 # Visual Fidelity Analysis
 
-- Node type: leaf; Status: Active; Revision: 2; Date: 2026-10-29.
+- Node type: leaf; Status: Active; Revision: 3; Date: 2026-10-30.
 - Authority: user requested capturing the successful image-analysis and
   implementation methods from the current component-polish task in this skill.
   The 2026-10-29 approval extends the visual workflow to SwiftUI and inline corrections.
+  The 2026-10-30 refinement requires actionable numeric change notes, not only intent.
 - Applies within the [design workflow's scope](imagegen-ui-redesign-workflow.md)
   when matching an accepted reference or correcting visible geometry.
 - Does not prescribe a new design, target-specific dimensions or extra product states.
@@ -28,6 +29,16 @@ appearance, runtime measurements establish actual geometry, and source explains 
   (computed styles and cascade on Web) before adding overrides or wrappers.
 - Separate Web CSS units, native points, screenshot pixels and scale. Separate
   glyph appearance, text line box, painted control and hit target. Check size arithmetic.
+- Prepare each material correction as element/property, current value and basis,
+  target value and authority, delta/direction or responsive rule, purpose and check.
+  Render the applicable numeric recipe in the lower Change panel; preserve key
+  unchanged dimensions in the Preserve panel. Geometry arrows and notes must agree.
+- Calculate deltas only for the same quantity, unit and state. A source declaration
+  is not a runtime measurement. Unknown current values prevent an exact delta;
+  new elements have no before value, not a fabricated zero. Label proposed targets.
+- Responsive sizing/centering uses its actual relationship or formula, not a fixed
+  offset from one screenshot. Non-geometric edits keep their relevant values or
+  behavior description; do not invent pixel changes for wording, colors or actions.
 - Reject generated changes to required content, hierarchy or actions; ImageGen
   annotations do not override the accepted target or measured runtime geometry.
 - Confirm the edited implementation reached the target UI and the relevant state
@@ -53,3 +64,6 @@ The method must explain how to diagnose each without prescribing the previous
 project's CSS values, selectors, state model or workaround to other products.
 Validate the skill and its links; reuse existing task evidence for this text update.
 This retrospective is not an independent agent test or new downstream runtime QA.
+2026-10-30: numeric recipes were checked across instructions, prompt and examples:
+signed deltas, unchanged values, adaptive rules, and unknown/new baselines.
+This text update does not claim a new live ImageGen or product-runtime validation.
