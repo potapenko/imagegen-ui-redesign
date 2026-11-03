@@ -1,38 +1,39 @@
 # ImageGen UI Design and Correction Workflow
 
-- Node type: leaf; Status: Active; Revision: 2026-10-30.3.
-- Authority: user's 2026-10-29 approval in the UI-instructions audit chat to
-  require the visual correction loop, inline delivery and SwiftUI coverage,
-  exclude backend work and minor edits, and remove contradictions without scripts.
-- Annotation authority: on 2026-10-30 the user requested that prompts require
-  lower preserve/change blocks, drafting marks and numeric implementation recipes.
+- Node type: leaf; Status: Active; Revision: 2026-11-03.1.
+- User approval, 2026-10-29: Web/SwiftUI correction loop and inline delivery,
+  excluding backend work and minor standalone edits, without scripts.
+- User approval, 2026-10-30: preserve/change panels, drafting marks and numeric recipes.
+- On 2026-11-03 the user required a fresh ImageGen comparison of the entire
+  component against the accepted mockup after every implementation correction.
 
 ## Scope
 
-Use for new Web/SwiftUI designs and substantial composition/hierarchy corrections.
-Backend work, behavior-neutral refactoring and small prescribed UI edits without
-new design choices retain focused checks; line count does not determine scope.
-Detailed matching follows [Visual Fidelity Analysis](visual-fidelity.md).
+Use for new Web/SwiftUI designs, substantial visual corrections and explicit
+acceptance against a mockup, including one-property repairs in that loop.
+Backend work, behavior-neutral refactoring and small standalone prescribed edits
+use focused checks. For detailed matching, follow [Visual Fidelity Analysis](visual-fidelity.md).
 
 ## Design and correction loop
 
-1. Establish product requirements and the smallest meaningful target component.
-   Start with its real capture; for a new component use existing product references
-   and design tokens, clearly stating that no current implementation exists.
-2. Generate a mockup, inspect it and show it inline in the current chat. Obtain
-   user acceptance before implementing a new visual choice; reuse an already
-   accepted reference instead of requesting the same approval again.
-3. Implement, then capture the real component/screen at matching state/theme/scale.
-4. Send that real implementation capture and accepted reference to ImageGen for
-   targeted visual correction. Show every returned design/correction image inline
-   with a short explanation, including rejected outputs labelled as unsuitable.
-   A path, saved-file notice, text-only critique or agent-only inspection is not delivery.
+1. Pin the scoped component, states and sizes. Capture existing UI or use product
+   references/tokens for a new component and identify it as new.
+2. Show the mockup inline and obtain acceptance for new choices. Reuse an accepted target.
+3. Capture the real component and containing screen at matching state, theme and scale.
+4. Send the complete scoped component and the same accepted reference to ImageGen.
+   Ask for all material discrepancies, including ones the agent has not named.
+   Detail crops are supplemental. Show every result inline with a brief explanation,
+   including rejected outputs. A link or text-only critique does not deliver an image.
 5. Check proposed corrections against the accepted target and real evidence.
-   Apply fidelity fixes within existing authority; obtain acceptance for any new
-   material visual choice. Reject invented behavior, content and incompatible styling.
-6. Recapture after fixes; repeat for substantive mismatches, without a fixed pass count.
-7. Show the actual final implementation inline. Complete only when scoped visual
-   discrepancies and affected states have been verified; disclose any unmet checks.
+   Compare regions and adjacent gaps on the original inputs at a common scale.
+   If ImageGen misses a visible difference, reject its conclusion and return
+   the complete inputs with the measured relation for a bounded correction.
+   In review-only tasks report findings. Fix within scope and obtain acceptance for new choices.
+6. After each implementation correction, return to step 3. The previous comparison
+   cannot cover the revised UI, even when only one property changed.
+7. Show the actual final implementation inline. Each required state and size must
+   have a whole-component comparison valid for the final implementation, with no
+   unresolved material discrepancy. A missing comparison leaves acceptance open.
 
 ## Invariants
 
@@ -47,9 +48,8 @@ Detailed matching follows [Visual Fidelity Analysis](visual-fidelity.md).
   Use the user's language; for Russian use «Сохраняем» / «Меняем» and concrete
   verbs such as «Убираем», «Заменяем», «Переносим». Arrow callouts and chat prose
   do not substitute for these lower panels. Prepare their exact copy in the prompt.
-- Use «По принятому макету» only for an accepted target; otherwise label it a
-  proposal. For a new component, label the left side as product references, not
-  a fabricated current implementation; retain the lower inherited/new-choice notes.
+- Use «По принятому макету» only for an accepted target. Label new components'
+  references, inherited constraints and proposed choices without fabricating a before.
 - Lower notes follow the [numeric correction contract](visual-fidelity.md): property,
   current → target, delta/direction or responsive rule, units and known authority.
   Preserve relevant unchanged values too. Do not invent precision or replace an
@@ -76,23 +76,22 @@ Detailed matching follows [Visual Fidelity Analysis](visual-fidelity.md).
 
 ## Files, failure and delivery
 
-- Follow the global image-storage and retention policy referenced by `SKILL.md`:
-  system-temp images, retained originals and no agent image cleanup. Do not recommend
-  repository artifact directories. Transient non-image evidence follows its own policy.
-- If ImageGen is unavailable, report the limitation and keep dependent design work
-  pending; do not silently substitute an agent-invented design or claim the loop passed.
-- If UI cannot run, report the missing runtime proof; references cannot replace it.
+- Follow the image-storage policy in `SKILL.md`: system-temp images, retained originals,
+  no agent cleanup or repo artifact directories. Transient non-image evidence has its own policy.
+- Missing ImageGen or runtime proof leaves the affected acceptance pending. Report the limitation.
 - Clipping, overlap, misleading actions or hidden required state prevent acceptance.
 - Report actual processed scope, images, changed files, verification and remaining
   gaps. A turn boundary or blocker never turns partial work into a completed redesign.
 
 ## Verification mapping
 
-Check the skill, fidelity method, metadata and copied prompts for consistent scope,
-inline delivery and four-region instructions. Validate links/YAML; inspect returned
-images for lower panels, drafting marks and honest capture/measurement labels.
-Review existing/new components and accepted/proposed targets without widening scope.
-Instruction validation alone is not independent end-to-end UI acceptance.
+Validate links, YAML and agreement across the skill, method, prompts and metadata.
+Check actual sheets for four regions, drafting marks and honest labels. Instruction
+validation alone cannot establish downstream UI acceptance.
+
+Regression example: correct video aspect and meter count can coexist with an oversized
+gap to the close control. Catch the gap without user prompting and recheck the revised
+whole card. The original images take precedence over a generated claim of a match.
 
 2026-10-30: two live probes of the [copyable prompt](../../../prompts/annotated-comparison.md)
 rendered drafting marks and lower panels. Both were shown and rejected for gap-arrow

@@ -4,6 +4,16 @@ Read before each comparison/correction generation. Fill the fields from the
 current task, then append both mandatory blocks to the main skill prompt. They supplement
 the required current/target views and lower Preserve/Change panels.
 
+For accepted-reference checks, include this instruction on **every** pass:
+“Compare the entire current component with the accepted reference at the same
+scale and state. Inspect each region in order. Compare the order, occupied
+widths and the empty intervals between neighboring elements on the original
+inputs before redrawing them. Name the two edges and direction for any material
+difference, including ones outside my listed findings. If none are visible,
+say so.” Put newly spotted discrepancies
+in labelled callouts, separate from supplied measurements. Use a fresh whole
+component after an implementation correction; detail crops are supplemental.
+
 Prepare a short callout list before invoking ImageGen. Each entry specifies:
 `panel | feature | endpoints/regions | exact label | basis`.
 Basis is measured current geometry, accepted target, explicit proposal, or a

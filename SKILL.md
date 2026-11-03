@@ -1,6 +1,6 @@
 ---
 name: imagegen-ui-redesign
-description: Create new visual designs or substantially redesign/correct Web and SwiftUI UI through ImageGen mockups, user acceptance, inline correction images and real-runtime verification. Use for material composition or hierarchy choices and substantial reference-matching work; exclude backend-only tasks, behavior-neutral refactoring and small prescribed UI edits without a new design choice.
+description: Verify or match a Web or SwiftUI component to an accepted mockup. Use ImageGen to compare the whole running component after every correction. Also use for new visual designs and substantial redesigns requiring mockup approval. Standalone small prescribed edits use focused checks.
 ---
 
 # ImageGen UI Redesign
@@ -11,10 +11,10 @@ Use ImageGen for visual proposals and corrections within the product's contracts
 Apply the core loop to new designs and substantial visual repair on Web and
 native SwiftUI surfaces. Work on the smallest meaningful component in scope.
 
-Backend-only work, behavior-neutral refactoring and small prescribed UI edits
-without a new design choice do not trigger this loop. Use direct edits and
-focused verification for those tasks. Judge scope by the visual decision, not
-the line count; a UI file change alone does not require ImageGen.
+Requests to verify an implementation against an accepted mockup start at the
+comparison, even if no new visual choice is needed. Backend-only work,
+behavior-neutral refactoring and small prescribed edits outside an ongoing
+mockup comparison use focused checks.
 
 This skill is especially useful for admin panels, dashboards, operator tools, complex settings screens, review queues, data tables, and app screens whose layout needs systematic visual improvement.
 
@@ -35,28 +35,39 @@ Do not send only a full-page screenshot and ask ImageGen to redesign everything 
 
 Work component by component:
 
-1. Read the applicable product/design contracts and establish the component's
-   purpose. Capture its current UI. For a new component use existing product
-   references and tokens; state that no current implementation exists.
+1. Pin the whole component in scope, the accepted reference(s) for each required
+   state and size, and applicable product/design contracts. For a new component
+   use existing product references and tokens until there is a running UI.
 2. Generate the annotated comparison sheet defined in the ImageGen Prompt Template
    below, including drafting marks and both lower text panels. Inspect it, show it inline
    in the current chat and obtain user acceptance before implementing new visual
    choices. Reuse a reference already accepted for this scope without reapproval.
-3. Implement the accepted design in real UI code. Capture the actual component
-   and containing screen at comparable content, state, theme and dimensions.
-4. Send the real implementation crop and accepted reference to ImageGen for a
-   targeted correction pass. Identify their roles; preserve the accepted direction.
-   Show every returned design/correction image inline with a short explanation
+3. For an existing implementation, start with its running UI. For a new one,
+   implement the accepted design first. Capture the actual component and its
+   containing screen at comparable content, state, theme and dimensions.
+4. Send a real capture of the **entire scoped component** and its accepted reference
+   to ImageGen. Ask “Across the whole component, which material differences do you
+   see, including any I have not named?” Compare composition, element order, size,
+   spacing, type, media framing and visible controls. Add known findings or close-ups
+   only as supplements. Show every returned image inline with a short explanation
    before applying or superseding it. Label unsuitable outputs as rejected and
    explain why; a path, saved-file notice or agent-only inspection is not delivery.
-5. Check the proposal against the accepted target, product contracts and actual
-   geometry. Apply fidelity repairs within the approved scope without asking
-   again; obtain acceptance for any new material visual choice before coding it.
-6. Capture the revised implementation and verify the corrected relations and
-   affected states in context. Repeat steps 4–6 for remaining substantive visual
-   mismatches. Do not invent changes or require an arbitrary number of passes.
-7. Show the actual final component and screen inline, distinguish them from the
-   generated proposal, and report verified results and remaining gaps.
+5. Verify the proposal against the accepted target, product contracts and actual
+   geometry. Compare the original views region by region at a common scale,
+   including the empty space between neighboring elements. An ImageGen claim
+   of a match that contradicts the originals fails the pass. Return the whole
+   inputs with the measured discrepancy for a bounded correction; keep the
+   finding open until the actual UI matches. In a review-only task, report
+   discrepancies. When repairs are authorized, apply fidelity fixes without
+   asking again. Obtain acceptance before implementing any new material visual choice.
+6. After **every implementation correction**, return to step 3: wait for the revised
+   UI, recapture the whole component in each affected state/size and send it to
+   ImageGen with the same accepted reference. Check the fix and look again across
+   the whole component. The pre-edit comparison cannot verify the new revision.
+7. Finish when every required state and size has a whole-component comparison
+   valid for the final UI, each material discrepancy is resolved against real
+   evidence, and the containing screen works in context. Show the actual final
+   component and screen inline. A missing comparison leaves that scope pending.
 
 ImageGen proposes corrections; it does not grant human acceptance or prove that
 the implementation works. A rejected generation does not authorize changing the
@@ -231,10 +242,10 @@ labels when numbers are unknown. Do not remove the graphical layer just because
 the lower notes already mention spacing or dimensions. A specific user-requested
 format may override this; an agent's preference for a cleaner sheet may not.
 
-For fidelity work, also pass the accepted component reference. Name the observed
-mismatches: divider clearance, equal control heights, chevron centring, text
-baseline, padding, radius, typography or clipping. Ask for targeted correction,
-not a new visual direction. Put measurements and callouts outside the product UI.
+For fidelity work, start each prompt with the whole-component comparison in
+step 4. Name observed mismatches as leads only. Invite additional findings in
+separate callouts and allow an empty finding list when the inputs already match.
+Keep measurements and callouts outside the product UI.
 Use governing Web dimensions or native point-based layout constraints; check
 size arithmetic. Preserve SwiftUI system controls, typography, safe areas and
 supported adaptations. Generated annotations are proposals, not measurements.
@@ -277,7 +288,8 @@ Render BOTH lower panels visibly INSIDE the image beneath their respective UI
 regions. Do not omit, merge, crop, paraphrase or replace them with arrows alone.
 Keep notes legible at normal viewing size; reserve space without shrinking the UI.
 Footer (verbatim): <localized "Comparison mockup — not a runtime screenshot">.
-Observed discrepancies: <specific visible problems, not generic polish requests>
+Whole-component comparison (fidelity): identify any material difference across both complete views, including unlisted ones. Keep the accepted reference fixed.
+Known discrepancies: <optional leads; verify them and check the rest of the component>
 Target geometry: <governing dimensions and units, spacing, typography and radii for this platform>
 Mandatory recipe and drafting overlay: use both filled blocks from prompts/annotated-comparison.md.
 Draw double-ended dimension arrows, extension lines, labelled region brackets and
@@ -411,7 +423,8 @@ Use native points and actual capture scale, not assumed CSS dimensions. A previe
 may support component work but cannot prove app interactions it does not exercise.
 Do not impose browser console checks or a browser recreation on native work.
 
-Do not accept a pass from code compilation alone. A pass is complete only when the implemented component screenshot and the full-screen screenshot both show that the new hierarchy works without clipping, overlap, misleading primary actions, or hidden required state.
+These checks support the Core Rule's final comparison. A clean screen or a passing
+check on one control cannot close an open whole-component comparison.
 
 ## Iteration Stop Rules
 

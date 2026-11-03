@@ -81,8 +81,13 @@ coordinate system rather than treating these Web APIs as interchangeable.
 
 ## 5. Use ImageGen to resolve the specific visual question
 
-Supply the current crop and accepted reference with their roles labelled.
-Describe the observed mismatches and the relationships to preserve. Request the
+Supply the entire current component and the accepted reference with their roles
+labelled. Ask ImageGen to find differences across the whole component, including
+those outside the known findings. For a multi-state design sheet, isolate the
+matching complete card without losing its surrounding relationships. Compare
+the occupied widths and empty intervals between adjacent elements in each region
+on the originals at a common scale. A redraw can silently close a real gap.
+Describe known mismatches as leads. Request the
 four-region comparison sheet from SKILL.md: current/target above, separate
 preserve/change text panels below. Put explicit annotation copy in the prompt;
 include the mandatory drafting block from
@@ -110,8 +115,10 @@ Do not shrink accepted hit targets or spacing merely to make one viewport fit;
 check the specified wrapping, flexible area and scrolling behaviour first.
 After moving layout/scroll ownership, verify focus, draft and reading position
 where the contract preserves them. Styling alone does not justify unrelated suites.
-Compare before/reference/actual-after; accept the original discrepancy only when
-both the measured relation and the rendered result support it, without a new defect.
+After every implementation correction, submit the fresh whole component to ImageGen
+with the same accepted reference under the Core Rule. Close the original discrepancy
+when the measured relation and rendered result support it and the whole view has
+been checked for remaining or newly introduced differences.
 Account for platform font rasterization and subpixel rounding; generated pixels
 are not an exact rendering oracle. Report verified fidelity and remaining gaps,
 especially when emulation or visual fixtures cannot prove native interaction.
