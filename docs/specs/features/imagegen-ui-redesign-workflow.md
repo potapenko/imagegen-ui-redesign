@@ -1,11 +1,11 @@
 # ImageGen UI Design and Correction Workflow
 
-- Node type: leaf; Status: Active; Revision: 2026-11-03.1.
+- Node type: leaf; Status: Active; Revision: 2026-11-03.2.
 - User approval, 2026-10-29: Web/SwiftUI correction loop and inline delivery,
   excluding backend work and minor standalone edits, without scripts.
 - User approval, 2026-10-30: preserve/change panels, drafting marks and numeric recipes.
-- On 2026-11-03 the user required a fresh ImageGen comparison of the entire
-  component against the accepted mockup after every implementation correction.
+- On 2026-11-03 the user required acceptance of composite UI by part, then as a whole,
+  including a fresh whole-component ImageGen comparison after each implementation correction.
 
 ## Scope
 
@@ -16,24 +16,22 @@ use focused checks. For detailed matching, follow [Visual Fidelity Analysis](vis
 
 ## Design and correction loop
 
-1. Pin the scoped component, states and sizes. Capture existing UI or use product
-   references/tokens for a new component and identify it as new.
+1. Pin the scoped component, its parts, relationships, states and sizes. Capture existing UI
+   or use product references/tokens for a new component and identify it as new.
 2. Show the mockup inline and obtain acceptance for new choices. Reuse an accepted target.
 3. Capture the real component and containing screen at matching state, theme and scale.
-4. Send the complete scoped component and the same accepted reference to ImageGen.
-   Ask for all material discrepancies, including ones the agent has not named.
-   Detail crops are supplemental. Show every result inline with a brief explanation,
+4. For composite UI, compare matched crops of each scoped part through ImageGen first.
+   Keep both edges of each tested relationship visible and record the metric and outcome.
+   Then compare both whole views for all material discrepancies, including unlisted ones. Show every result inline,
    including rejected outputs. A link or text-only critique does not deliver an image.
 5. Check proposed corrections against the accepted target and real evidence.
    Compare regions and adjacent gaps on the original inputs at a common scale.
    If ImageGen misses a visible difference, reject its conclusion and return
    the complete inputs with the measured relation for a bounded correction.
    In review-only tasks report findings. Fix within scope and obtain acceptance for new choices.
-6. After each implementation correction, return to step 3. The previous comparison
-   cannot cover the revised UI, even when only one property changed.
-7. Show the actual final implementation inline. Each required state and size must
-   have a whole-component comparison valid for the final implementation, with no
-   unresolved material discrepancy. A missing comparison leaves acceptance open.
+6. After every fix, repeat step 3 for affected parts and neighbors, then compare the fresh whole component.
+7. Show the actual final UI inline. Each required state/size needs valid part, relationship and whole-view results.
+   Any missing result or unresolved material discrepancy keeps acceptance open.
 
 ## Invariants
 
@@ -89,9 +87,9 @@ Validate links, YAML and agreement across the skill, method, prompts and metadat
 Check actual sheets for four regions, drafting marks and honest labels. Instruction
 validation alone cannot establish downstream UI acceptance.
 
-Regression example: correct video aspect and meter count can coexist with an oversized
-gap to the close control. Catch the gap without user prompting and recheck the revised
-whole card. The original images take precedence over a generated claim of a match.
+Regression example: review title, meter and meter-to-close gap separately on the header pair.
+Then review the whole card. A matching video aspect or meter count cannot clear a bad gap.
+The original images take precedence over a generated claim of a match.
 
 2026-10-30: two live probes of the [copyable prompt](../../../prompts/annotated-comparison.md)
 rendered drafting marks and lower panels. Both were shown and rejected for gap-arrow

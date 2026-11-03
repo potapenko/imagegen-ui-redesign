@@ -81,7 +81,11 @@ coordinate system rather than treating these Web APIs as interchangeable.
 
 ## 5. Use ImageGen to resolve the specific visual question
 
-Supply the entire current component and the accepted reference with their roles
+For each composite part, crop the matching real and accepted views with both
+sides of each relevant gap or alignment visible. For example, a header sheet
+can test a title's text span, the count and width of the meter, and the gap
+from the last bar to the painted close circle. Give each its own outcome.
+Then supply the entire current component and accepted reference with their roles
 labelled. Ask ImageGen to find differences across the whole component, including
 those outside the known findings. For a multi-state design sheet, isolate the
 matching complete card without losing its surrounding relationships. Compare
@@ -115,7 +119,8 @@ Do not shrink accepted hit targets or spacing merely to make one viewport fit;
 check the specified wrapping, flexible area and scrolling behaviour first.
 After moving layout/scroll ownership, verify focus, draft and reading position
 where the contract preserves them. Styling alone does not justify unrelated suites.
-After every implementation correction, submit the fresh whole component to ImageGen
+After every implementation correction, recheck the affected parts and relationships,
+then submit the fresh whole component to ImageGen
 with the same accepted reference under the Core Rule. Close the original discrepancy
 when the measured relation and rendered result support it and the whole view has
 been checked for remaining or newly introduced differences.

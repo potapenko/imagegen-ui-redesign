@@ -1,4 +1,4 @@
 interface:
   display_name: "ImageGen UI Redesign"
   short_description: "Web and SwiftUI design with visible correction loops"
-  default_prompt: "Use $imagegen-ui-redesign to design or verify this component. Obtain approval for new design choices and compare the whole running component with the accepted mockup through ImageGen after every correction."
+  default_prompt: "Use $imagegen-ui-redesign to design or verify this component. Obtain approval for new design choices. Compare its parts and then the whole UI against the accepted mockup through ImageGen, repeating affected checks after each correction."

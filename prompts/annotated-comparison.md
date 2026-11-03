@@ -4,7 +4,10 @@ Read before each comparison/correction generation. Fill the fields from the
 current task, then append both mandatory blocks to the main skill prompt. They supplement
 the required current/target views and lower Preserve/Change panels.
 
-For accepted-reference checks, include this instruction on **every** pass:
+For a composite UI, run the part sheets first. On each: “Compare both crops
+of this part. For each named element and relationship, show the two edges,
+actual and target with units/basis, and the outcome. Keep neighbors in view.”
+Then use this instruction on the whole-component pass:
 “Compare the entire current component with the accepted reference at the same
 scale and state. Inspect each region in order. Compare the order, occupied
 widths and the empty intervals between neighboring elements on the original
@@ -12,7 +15,7 @@ inputs before redrawing them. Name the two edges and direction for any material
 difference, including ones outside my listed findings. If none are visible,
 say so.” Put newly spotted discrepancies
 in labelled callouts, separate from supplied measurements. Use a fresh whole
-component after an implementation correction; detail crops are supplemental.
+component after each correction, preceded by fresh checks of affected parts and neighbors.
 
 Prepare a short callout list before invoking ImageGen. Each entry specifies:
 `panel | feature | endpoints/regions | exact label | basis`.

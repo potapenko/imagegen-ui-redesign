@@ -1,6 +1,6 @@
 ---
 name: imagegen-ui-redesign
-description: Verify or match a Web or SwiftUI component to an accepted mockup. Use ImageGen to compare the whole running component after every correction. Also use for new visual designs and substantial redesigns requiring mockup approval. Standalone small prescribed edits use focused checks.
+description: Verify Web or SwiftUI UI against an accepted mockup with ImageGen. Review composite UI by part and then as a whole. Repeat affected part checks and the whole comparison after every correction. Also use for new designs and substantial redesigns requiring mockup approval. Standalone small prescribed edits use focused checks.
 ---
 
 # ImageGen UI Redesign
@@ -36,8 +36,10 @@ Do not send only a full-page screenshot and ask ImageGen to redesign everything 
 Work component by component:
 
 1. Pin the whole component in scope, the accepted reference(s) for each required
-   state and size, and applicable product/design contracts. For a new component
-   use existing product references and tokens until there is a running UI.
+   state and size, and applicable product/design contracts. For a composite,
+   name its visible parts and the relationships between them before reviewing.
+   For a new component use existing product references and tokens until there
+   is a running UI.
 2. Generate the annotated comparison sheet defined in the ImageGen Prompt Template
    below, including drafting marks and both lower text panels. Inspect it, show it inline
    in the current chat and obtain user acceptance before implementing new visual
@@ -45,11 +47,21 @@ Work component by component:
 3. For an existing implementation, start with its running UI. For a new one,
    implement the accepted design first. Capture the actual component and its
    containing screen at comparable content, state, theme and dimensions.
-4. Send a real capture of the **entire scoped component** and its accepted reference
-   to ImageGen. Ask “Across the whole component, which material differences do you
-   see, including any I have not named?” Compare composition, element order, size,
-   spacing, type, media framing and visible controls. Add known findings or close-ups
-   only as supplements. Show every returned image inline with a short explanation
+4. Always run the whole comparison. For a composite, run the parts pass first.
+   - **Parts.** Send paired real/reference crops of each named part to ImageGen,
+     taken from the same state as the whole views. If a part contains several
+     elements, keep their common parent visible and assess each element and
+     each important relationship separately on its detail sheet. A gap crop
+     must include both facing edges. For every check record the property or
+     edge pair, actual value, target and basis, then the outcome (matches,
+     differs or unverified). Use relational criteria where no number is known.
+   - **Whole.** Send the **entire scoped component** and its accepted reference
+     to ImageGen. Ask “Across the whole component, which material differences
+     do you see, including any I have not named?” Compare composition, order,
+     size, spacing, type, media framing and controls. Carry open part findings
+     into this pass and check how the parts fit together.
+
+   Show every returned image inline with a short explanation
    before applying or superseding it. Label unsuitable outputs as rejected and
    explain why; a path, saved-file notice or agent-only inspection is not delivery.
 5. Verify the proposal against the accepted target, product contracts and actual
@@ -61,13 +73,16 @@ Work component by component:
    discrepancies. When repairs are authorized, apply fidelity fixes without
    asking again. Obtain acceptance before implementing any new material visual choice.
 6. After **every implementation correction**, return to step 3: wait for the revised
-   UI, recapture the whole component in each affected state/size and send it to
-   ImageGen with the same accepted reference. Check the fix and look again across
+   UI, recheck changed parts and any neighboring relationships the fix could move,
+   then send the fresh whole component in each affected state/size to ImageGen
+   with the same accepted reference. Check the fix and look again across
    the whole component. The pre-edit comparison cannot verify the new revision.
-7. Finish when every required state and size has a whole-component comparison
+7. Finish when every required part and relationship has a verified result,
+   every required state and size has a whole-component comparison
    valid for the final UI, each material discrepancy is resolved against real
    evidence, and the containing screen works in context. Show the actual final
-   component and screen inline. A missing comparison leaves that scope pending.
+   component and screen inline. Any missing part or whole comparison leaves
+   its scope pending.
 
 ImageGen proposes corrections; it does not grant human acceptance or prove that
 the implementation works. A rejected generation does not authorize changing the
@@ -242,8 +257,8 @@ labels when numbers are unknown. Do not remove the graphical layer just because
 the lower notes already mention spacing or dimensions. A specific user-requested
 format may override this; an agent's preference for a cleaner sheet may not.
 
-For fidelity work, start each prompt with the whole-component comparison in
-step 4. Name observed mismatches as leads only. Invite additional findings in
+For fidelity work, identify the part or whole pass from step 4 in the prompt.
+Name observed mismatches as leads only. Invite additional findings in
 separate callouts and allow an empty finding list when the inputs already match.
 Keep measurements and callouts outside the product UI.
 Use governing Web dimensions or native point-based layout constraints; check
@@ -288,7 +303,7 @@ Render BOTH lower panels visibly INSIDE the image beneath their respective UI
 regions. Do not omit, merge, crop, paraphrase or replace them with arrows alone.
 Keep notes legible at normal viewing size; reserve space without shrinking the UI.
 Footer (verbatim): <localized "Comparison mockup — not a runtime screenshot">.
-Whole-component comparison (fidelity): identify any material difference across both complete views, including unlisted ones. Keep the accepted reference fixed.
+Comparison scope (fidelity): <named part with visible neighbors and edge checks, or the complete component with open part findings>. Compare all supplied regions, including unlisted differences. Keep the accepted reference fixed.
 Known discrepancies: <optional leads; verify them and check the rest of the component>
 Target geometry: <governing dimensions and units, spacing, typography and radii for this platform>
 Mandatory recipe and drafting overlay: use both filled blocks from prompts/annotated-comparison.md.
