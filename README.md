@@ -1,16 +1,66 @@
 # ImageGen UI Redesign
 
-A Codex skill for getting a running interface to match an approved mockup. Give Codex the reference and a component it can open. It reviews the parts with ImageGen and checks their geometry in the app. After each fix, it compares a fresh capture of the whole component with the same mockup.
+A Codex skill for matching a running interface to an approved mockup. Codex captures the UI, compares its parts with ImageGen, checks the findings in the app, and brings back a fresh view of the whole component after each fix. [Install the skill](#try-it-in-codex).
 
-We built this while working on the PlayPhrase.me pronunciation player. The recording card had all seven volume bars and a working Close button. A visual review called the spacing a match. In the browser capture, the gap from the last bar to the left edge of the round Close button was **90 pixels**. At the same video width, the approved design left **about 18 pixels**. [Try it in Codex](#try-it-in-codex) · [Replay the comparison](docs/examples/prompts.md#03-measured-review-of-the-first-capture).
+## How a gap survived two visual reviews
 
-![English comparison showing the empty space between the last volume bar and the close circle in the implementation and the accepted design](docs/examples/03-measured-before.webp)
+We built this while working on the PlayPhrase.me pronunciation player. A learner watches a clip and repeats the line. During recording, seven bars beside the title show the input level. In the approved design, the bars and the round Close button form a compact group. In our browser, Close looked stranded at the far end of the header.
 
-*English illustration of the measured review. The dimensions come from the original captures.*
+We gave ImageGen the recording card and the approved mockup and asked it to find any material difference. Its review said the spacing and grouping matched. Look at the empty space just before the ×.
+
+*The eight figures below are English editions of the review sheets. The text describes what happened in the original tests, including drawing errors corrected in the English illustrations.*
+
+![First blind review of the player, showing the spacing finding that was rejected](docs/examples/01-blind-before.webp)
+
+We ran the same prompt on a revised capture, again without mentioning Close. This time the review picked up the quieter meter and shorter transcript. Both change naturally during recording. It still missed the gap.
+
+![The same blind prompt on the revised capture focuses on sound level and transcript length](docs/examples/02-blind-after.webp)
+
+## Give the comparison two edges
+
+We put the original images at the same video width and measured from **the right edge of the last bar to the left edge of the painted circle**. On the first capture, that space occupied **90 pixels**. On the approved mockup, it occupied **about 18**. With those endpoints named, ImageGen could draw a useful comparison.
+
+![Measured comparison of the original card: 90 capture pixels between the meter and Close, against roughly 18 in the reference](docs/examples/03-measured-before.webp)
+
+The revised capture measured **26 pixels** across the same interval. The fix had removed most of the empty space. The historical redrawing put one arrow inside the meter, though, so we checked the remaining difference against the originals. That is why the skill keeps the source capture alongside every generated sheet.
+
+![Measured comparison of the revision: 26 capture pixels against the same roughly 18-pixel reference](docs/examples/04-measured-after.webp)
+
+## Review the header on its own
+
+For the next check, we captured a later desktop build and cropped the complete header from both views. Keeping it intact let us ask three separate questions. How wide was the visible title? Did all seven bars fit in the expected span? How much space was left before Close?
+
+At a video width of 289.2 CSS px, the browser measured **61.6 CSS px** for the meter and **16.5 CSS px** for the gap. The corresponding estimates from the reference were about 62 and 16 at that scale. Both relationships held. The original Russian title lettering was still about five pixels narrower.
+
+![The title, meter and gap each have their own measurement on the paired header crops](docs/examples/05-header-first.webp)
+
+In the original run, the first drawing counted the status dot as part of the title and lost a meter bar. We asked for another drawing with guides on the first and last letters. It restored the seven bars, but its gap arrow still missed the edge of the circle. We kept the browser measurement in the review.
+
+![Header retry showing the title span, seven individual bars and the two edges used to check the gap](docs/examples/06-header-retry.webp)
+
+## Put the header back in the card
+
+The detail crop settled the question about Close. It could tell us nothing about where the movie started below it. We sent the **whole card** and the same approved design back to ImageGen. The video had the agreed 4:3 shape, and the phrase, transcript and Done button were visible. But the top of the video sat **73 CSS px** below the top of the card. The design suggested about **63** at the same video width.
+
+![Whole-card comparison showing the vertical distance from the top of the card to the video](docs/examples/07-whole-first.webp)
+
+We asked for a final sheet with both guides anchored to those top edges. The guides improved, but the redrawn reference lost a bar again. We closed the meter and Close checks using the running UI. The title width and video position remained open in this desktop comparison.
+
+![Whole-card retry distinguishing the corrected guides from the title and video-position findings that remained open](docs/examples/08-whole-retry.webp)
+
+## What the team got back
+
+Here is the **actual recording card** from the final docked run. The seven bars are visible, the video fills its 4:3 frame, and Close sits beside the meter. In this layout the browser measured the gap at **18.3 CSS px**, against about **18** in the reference scaled for the docked column. That result belongs to this layout. The two findings in the desktop comparison above are recorded separately.
+
+![Actual PlayPhrase.me docked recording card with seven input bars beside Close and a centered microphone over the movie](illustrations/runtime-docked-recording-final.png)
+
+*Original localhost capture in Russian. The title reads “Now repeat”, the live transcript is labeled “I hear”, and the bottom button says “Done”.* [Docked header measurements](illustrations/prompts/10-header-relationships.md) · [Final check across five player states](illustrations/prompts/18-final-whole-card.md).
+
+This is the handoff we ask for on our team: the running component, its approved reference, and a short account of what matched and what still needs work. After a repair, Codex checks the affected part and its neighbors, then compares the whole component again. The last step matters whenever a change inside one part can move another.
 
 ## Try it in Codex
 
-Copy this repository's GitHub URL into the prompt below and paste it into Codex.
+Paste this prompt into Codex with the GitHub URL of your copy of this repository.
 
 ```text
 $skill-installer Install imagegen-ui-redesign from <paste this repository's GitHub URL here>.
@@ -18,37 +68,18 @@ SKILL.md is at the repository root. Use --path . and --name imagegen-ui-redesign
 Resolve the repository's default branch and pass it as --ref.
 ```
 
-The workflow is tested in Codex with ImageGen and access to a running UI. For web work, use a browser that can open your development site. For SwiftUI, use the app or a simulator that can capture the native screen. The examples here were recorded on the web. [About agent skills](https://learn.chatgpt.com/docs/build-skills).
+The workflow is tested in Codex with ImageGen and access to a running UI. For web work, use a browser that can open your development site. For SwiftUI, use the app or a simulator that can capture the native screen. This case was recorded on the web. [About agent skills](https://learn.chatgpt.com/docs/build-skills).
 
-Attach an approved mockup, open your app project, and give Codex a task like this one. Replace the route and states with yours.
+Attach your approved mockup and adapt this prompt to your component:
 
 ```text
 Use $imagegen-ui-redesign to match the recording card at <local URL> to the
-attached mockup. Check it while listening and while recording, on desktop
-and mobile. Compare the header, video, transcript and action button. Fix
-confirmed layout differences. Show the final running card and tell me
-which differences, if any, are still open.
+attached mockup. Check the listening and recording states on desktop and mobile.
+Review the header, video, transcript and action button. Fix confirmed layout
+differences. After each fix, recheck the affected parts and the whole card.
+Show the final running UI and tell me which differences are still open.
 ```
 
-For a review without edits, ask Codex to report the differences. For a new design, give it a screenshot of the existing interface and describe the change. It shows you an annotated mockup for approval before implementing new visual choices.
+For a review without edits, ask Codex to report the differences. For a new design, give it the current screen and describe the change. It shows you a mockup for approval before implementing new visual choices.
 
-## How we use it
-
-1. **Keep the comparison fair.** Pin the approved reference and capture the same state, theme, content and available width in the app.
-2. **Review the parts.** In a crowded header, crop the same region from both views. Keep both ends of a gap visible. ImageGen draws the comparison. Codex checks each finding against the original images and, where possible, measures the rendered elements.
-3. **Review the whole component.** Send the full card and its reference to ImageGen, then inspect the screen around it. A header can match while the video below it starts too low or an action falls outside the visible window.
-4. **Recheck after each fix.** Capture the changed part, check the neighbors it could have moved, then send the fresh whole component and the same reference to ImageGen. An unresolved difference or a missing state stays open in the report.
-
-## Two more things the player taught us
-
-**Video framing needed a design decision.** Fitting the entire movie into a short floating window produced the black bands in this browser capture. We rejected that version and chose a centered 4:3 frame that crops a wide scene equally on both sides. That gave the next review a clear target across playback, recording and results. [Framing case and prompt](illustrations/prompts/03-video-framing.md).
-
-![Actual localhost capture of the rejected floating player, with black bands on either side of the movie](illustrations/runtime-rejected-framing.jpg)
-
-**The Repeat button exposed a scrolling bug.** The button looked right in a crop. In the short chat window, bringing Repeat fully into view automatically scrolled the result title and Close out of sight. After the fix, the title stayed at the top of the conversation and the user could scroll down to Repeat. That check needed the surrounding window. [Scroll-boundary case](illustrations/prompts/17-scroll-boundary.md) · [Final whole-card check](illustrations/prompts/18-final-whole-card.md).
-
-## Examples to use in your own review
-
-- [Eight tests with English prompts and original inputs](docs/examples/README.md). Run the same blind review on two captures, then repeat it with the measured gap.
-- [Eighteen illustrated reviews of the player](illustrations/README.md). Follow the recording meter, framing, result button and scroll position through desktop and mobile layouts. The case notes include rejected drawings and the measurements that settled each question.
-- [Annotated comparison prompt](prompts/annotated-comparison.md). Reuse the drawing instructions with your own component, references and measurements.
+To reproduce this story, download the [original inputs](docs/examples/source-inputs.zip) and run the [eight English test prompts](docs/examples/prompts.md). The [full player casebook](illustrations/README.md) also covers video framing, the Repeat button and scrolling in the short floating window.

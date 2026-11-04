@@ -5,16 +5,7 @@ while the close button still looks detached. These eight English illustrations
 follow two reviews of that card. The measurements come from the original
 browser captures and accepted design sheets.
 
-**For the skill README:** [the first measured comparison](03-measured-before.webp)
-shows the most visible defect. Pair [the header detail](06-header-retry.webp)
-with [the whole-card comparison](07-whole-first.webp) to show both levels of review.
-This Markdown is ready to paste into the repository's main README.
-
-```markdown
-![The close control sits 90 px from the meter, versus about 18 px in the reference](docs/examples/03-measured-before.webp)
-
-[Explore the part-by-part review and try the eight prompts](docs/examples/README.md)
-```
+Read [the illustrated walkthrough](../../README.md#how-a-gap-survived-two-visual-reviews) for the story behind these eight sheets and the final browser capture.
 
 [English test prompts](prompts.md) · [Original test inputs (ZIP)](source-inputs.zip)
 
