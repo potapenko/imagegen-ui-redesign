@@ -8,6 +8,8 @@ Codex gives ImageGen the approved mockup, a capture of the running component and
 
 If the measurement confirms a mismatch, the agent fixes the code, captures the affected parts and compares the whole component again with the **same mockup**. That fresh capture shows whether the fix worked and whether it moved a neighboring control. The review stays open while a required state is missing or a material difference remains.
 
+**For precise layout reviews on a supported Mac, we recommend pairing this skill with [UI Blueprint](https://github.com/potapenko/ui-blueprint).** Its CLI and companion skill let the agent measure gaps, sizes and alignment in the running UI, then repeat the same measurement after a fix. [Install UI Blueprint for Codex or Claude Code](https://github.com/potapenko/ui-blueprint#install-through-your-agent).
+
 ## How a gap survived two visual reviews
 
 We built this while working on the PlayPhrase.me pronunciation player. A learner watches a clip and repeats the line. During recording, seven bars beside the title show the input level. In the approved design, the bars and the round Close button form a compact group. In our browser, Close looked stranded at the far end of the header.
@@ -153,11 +155,12 @@ yet to be verified.
 
 ## Optional geometry measurements with UI Blueprint
 
-Both agents use an installed [UI Blueprint](https://github.com/potapenko/ui-blueprint)
-CLI for supported measurements. It can report which two edges were measured,
-in which coordinate space, and how far apart they are. Those facts go into the
-annotated ImageGen sheet. For example, a browser layout box and the visible
-edge of a round Close button can give different gaps.
+To add geometry measurements, pick the **Codex** or **Claude Code** install prompt in
+the [UI Blueprint installation guide](https://github.com/potapenko/ui-blueprint#install-through-your-agent).
+It installs the CLI and its matching skill together. During a review, the agent
+can then tell you which two edges it measured, how far apart they are and in
+which units. For example, the distance to the visible Close circle can differ
+from the distance to the edge of its clickable area.
 
 If the tool is missing, the agent offers a choice:
 
