@@ -190,7 +190,7 @@ Use the real running UI whenever possible.
   establish context before design without broadening the target component.
 - Store screenshots with stable names.
 
-Follow the [global image storage and retention policy](../../AGENTS.md#all-task-images-go-to-system-temp-and-are-never-agent-cleaned).
+Follow the host's image storage and retention policy when provided.
 Use a unique system-temp directory with distinct before/reference/correction/after
 names; never delete images. Copy tool-managed results into temp without altering
 originals and disclose that originals remain. Use retained absolute temp paths
