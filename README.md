@@ -1,6 +1,6 @@
 # ImageGen UI Redesign
 
-A coding agent can change a layout, open the app and post a screenshot that still shows the bug. This skill gives the agent a way to check its own work against the mockup you approved. [Use with Codex](#try-it-in-codex) · [Use with Claude Code](#use-with-claude-code).
+A coding agent can change a layout, open the app and post a screenshot that still shows the bug. This skill gives the agent a way to check its own work against the mockup you approved. [Use with Codex](#try-it-in-codex) · [Use with Claude Code](#use-with-claude-code) · [Make it the default for UI work](#make-it-the-default-for-ui-work).
 
 ![Visual review loop: capture the running UI, compare it with the approved mockup and verify the findings in the app. If a difference remains, fix the code, take a fresh capture and repeat. Show the verified UI when the checks pass.](illustrations/visual-review-loop.webp)
 
@@ -66,10 +66,10 @@ This is the handoff we ask for on our team: the running component, its approved 
 
 ## Try it in Codex
 
-Paste this prompt into Codex with the GitHub URL of your copy of this repository.
+Paste this prompt into Codex:
 
 ```text
-$skill-installer Install imagegen-ui-redesign from <paste this repository's GitHub URL here>.
+$skill-installer Install imagegen-ui-redesign from https://github.com/potapenko/imagegen-ui-redesign
 SKILL.md is at the repository root. Use --path . and --name imagegen-ui-redesign.
 Resolve the repository's default branch and pass it as --ref.
 ```
@@ -92,12 +92,11 @@ To reproduce this story, download the [original inputs](docs/examples/source-inp
 
 ## Use with Claude Code
 
-Paste this installation prompt into **local Claude Code**. Replace the placeholder
-with the clone URL of this repository. The install step needs no OpenAI key
+Paste this installation prompt into **local Claude Code**. The install step needs no OpenAI key
 and makes no image requests. [Claude Code skills](https://code.claude.com/docs/en/skills).
 
 ```text
-Install the imagegen-ui-redesign skill from <paste the repository clone URL here>
+Install the imagegen-ui-redesign skill from https://github.com/potapenko/imagegen-ui-redesign.git
 in my personal skills directory at ~/.claude/skills/imagegen-ui-redesign.
 The repository root contains SKILL.md. Clone it into that directory, keeping
 the helper and reference files together. Preserve any existing installation.
@@ -145,3 +144,55 @@ Use the same browser or simulator workflow you normally use in that project.
 We verified skill discovery in Claude Code 2.1.318 and tested both image request
 formats with offline responses. A paid end-to-end image call in Claude Code has
 yet to be verified.
+
+## Make it the default for UI work
+
+Install the skill first. To use it without naming it in every UI request,
+copy the block below into the instructions your agent reads.
+
+| Where you want the rule | Codex | Claude Code |
+| --- | --- | --- |
+| One project | `AGENTS.md` in the repository root | `CLAUDE.md` in the repository root |
+| All your projects on this machine | `~/.codex/AGENTS.md` by default | `~/.claude/CLAUDE.md` by default |
+
+If both tools already read the same project instructions, add the rule there
+once. A project `CLAUDE.md` can import a neighboring `AGENTS.md` with
+`@AGENTS.md`. [Codex instruction files](https://learn.chatgpt.com/docs/agent-configuration/agents-md) · [Claude Code instruction files](https://code.claude.com/docs/en/memory).
+
+**Copy this rule into your instructions file:**
+
+```markdown
+## UI design review
+
+Use the installed `imagegen-ui-redesign` skill whenever a task creates a Web or
+SwiftUI design, substantially changes a layout, or checks UI against an approved
+mockup. Read its SKILL.md before starting, even if the request omits the skill name.
+
+Get approval for new visual choices. For an approved design, compare the running
+UI to that same reference with ImageGen. Check composite components by part and
+then as a whole. Verify findings against the original captures or runtime measurements.
+After every fix, recheck the affected parts and neighbors, take a fresh capture of
+the whole component, and send it to ImageGen with the same reference.
+
+Show the review sheets and the final running UI. Keep the review open while a
+required state is unverified or a material difference remains. A standalone,
+fully specified minor edit outside a mockup review only needs a focused check.
+```
+
+**Or ask your agent to add it.** Paste this prompt from the project you want to
+configure. For a personal default, change the first line to `Scope: all my projects.`
+
+```text
+Scope: this project.
+Make imagegen-ui-redesign the default for UI design and mockup reviews.
+Copy the “UI design review” block from the installed skill's README. The current
+version is also at https://github.com/potapenko/imagegen-ui-redesign#make-it-the-default-for-ui-work
+Use the active AGENTS.md for Codex or CLAUDE.md for Claude Code at the selected
+scope. Create the file if needed. If a shared file at that scope already owns
+the rule, update it there. Merge any equivalent rule once, preserve unrelated
+instructions, and show me the file path and diff.
+```
+
+To check the setup, start a new chat in that project and ask: “Which skill would
+you use to match a running card to my mockup? What would you check again after
+moving its Close button? Describe the procedure only.”
