@@ -72,6 +72,9 @@ Paste this prompt into Codex:
 $skill-installer Install imagegen-ui-redesign from https://github.com/potapenko/imagegen-ui-redesign
 SKILL.md is at the repository root. Use --path . and --name imagegen-ui-redesign.
 Resolve the repository's default branch and pass it as --ref.
+After installing the redesign skill, follow its "Choose the geometry source"
+instructions. Use an available, compatible UI Blueprint installation. If it
+is missing, ask me whether to install it or use browser/native measurements.
 ```
 
 The workflow is tested in Codex with ImageGen and access to a running UI. For web work, use a browser that can open your development site. For SwiftUI, use the app or a simulator that can capture the native screen. This case was recorded on the web. [About agent skills](https://learn.chatgpt.com/docs/build-skills).
@@ -102,6 +105,9 @@ The repository root contains SKILL.md. Clone it into that directory, keeping
 the helper and reference files together. Preserve any existing installation.
 Check that Node.js is version 22 or newer and run node imagegen.mjs --help
 from the installed directory. Tell me how to invoke /imagegen-ui-redesign.
+Then follow its "Choose the geometry source" instructions. Use an available,
+compatible UI Blueprint installation. If it is missing, ask me whether to
+install it or use browser/native measurements.
 ```
 
 **Image generation is billed separately by OpenAI.** The helper sends the
@@ -145,6 +151,31 @@ We verified skill discovery in Claude Code 2.1.318 and tested both image request
 formats with offline responses. A paid end-to-end image call in Claude Code has
 yet to be verified.
 
+## Optional geometry measurements with UI Blueprint
+
+Both agents use an installed [UI Blueprint](https://github.com/potapenko/ui-blueprint)
+CLI for supported measurements. It can report which two edges were measured,
+in which coordinate space, and how far apart they are. Those facts go into the
+annotated ImageGen sheet. For example, a browser layout box and the visible
+edge of a round Close button can give different gaps.
+
+If the tool is missing, the agent offers a choice:
+
+- **Install UI Blueprint.** The agent explains the supported install method
+  and destination, waits for your approval, then follows the
+  [official setup for Codex or Claude Code](https://github.com/potapenko/ui-blueprint#install-through-your-agent)
+  and checks that the matching CLI and skill work together. Where a source
+  build is needed, that is part of the choice.
+- **Continue without Blueprint.** The agent measures with the project's
+  browser or native tools and records which source it used. Say “Skip UI
+  Blueprint for this project” for a project-wide choice, or “Skip it for
+  this review” for just this run. The agent carries that choice across fixes.
+
+The redesign skill can be installed on its own. If a platform or a required
+frame is unsupported, the agent explains the gap before switching methods.
+If you want a choice to survive new chats, ask the agent to add it to your
+project or personal instructions.
+
 ## Make it the default for UI work
 
 Install the skill first. To use it without naming it in every UI request,
@@ -171,6 +202,7 @@ mockup. Read its SKILL.md before starting, even if the request omits the skill n
 Get approval for new visual choices. For an approved design, compare the running
 UI to that same reference with ImageGen. Check composite components by part and
 then as a whole. Verify findings against the original captures or runtime measurements.
+Follow the skill's UI Blueprint setup choice for geometry and honor any scoped opt-out.
 After every fix, recheck the affected parts and neighbors, take a fresh capture of
 the whole component, and send it to ImageGen with the same reference.
 

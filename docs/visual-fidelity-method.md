@@ -5,6 +5,45 @@ visual repair. Use only the steps relevant to the observed problem; a small
 prescribed edit does not trigger this whole workflow.
 Product behavior and design authority remain with the target project's contracts.
 
+## Choose the geometry source
+
+Use the same decision in Codex and local Claude Code, during setup or before
+the first geometry check if setup did not settle it.
+
+1. **Honor the user's choice.** An explicit “skip Blueprint for this review”
+   selects browser or native measurements for this review, including every retry.
+   Respect a project or personal preference at its stated scope. Save a lasting
+   choice in the user's existing instructions only when requested.
+2. **Check the local installation.** Follow the installed `ui-blueprint` skill
+   or the skill included in a user-supplied bundle. Resolve its symlink or the
+   `uiblueprint` executable to the matching distribution. Verify the manifest,
+   required components and CLI help as described there. An empty PATH lookup
+   alone does not prove absence, and a Markdown file alone cannot run measurements.
+3. **Use a working bundle** for the relationships and platform it supports.
+   If missing or incomplete on a supported host, explain the applicable install
+   method and destinations from the [upstream installation guide](https://github.com/potapenko/ui-blueprint/blob/master/docs/install.md).
+   Ask once: “Install UI Blueprint for this agent, or continue this review
+   without it using browser or native measurements?” Wait for the choice.
+   Installing this redesign skill alone authorizes neither a Blueprint download
+   nor a source build. If installation is chosen, follow the upstream procedure
+   for this host, verify its bundled example, then resume the review.
+4. **If the host or observation is unsupported**, or installation fails, state
+   the specific limitation. Offer the available measurement source and wait for
+   explicit agreement unless the user has already authorized that fallback.
+   While waiting, continue independent work and leave the affected geometry open.
+   On opt-out, use existing browser DOM or native layout tools and name the source.
+
+With Blueprint, use `measure` on an authorized observation of the component.
+For example, measure the right edge of the last meter bar to the left painted
+edge of Close. Record the source elements, frame kind, coordinate space, units
+and result. If only hit bounds are exposed, the painted gap remains unknown.
+Use `check` only for an explicit requirement with a sourced tolerance. Pass the
+verified value and named edges into the existing ImageGen comparison sheet.
+An approved PNG supplies a visual target or a labeled raster estimate at a
+common scale. After a fix, measure the same relationship on a fresh observation
+before the whole-component comparison. Keep unknown and unsupported distinct
+from a pass, whichever tool supplied the facts.
+
 ## 1. Establish a comparable view
 
 Identify the real current capture, accepted reference and proposed mockup.

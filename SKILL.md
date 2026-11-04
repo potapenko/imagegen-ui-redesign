@@ -20,6 +20,11 @@ This skill is especially useful for admin panels, dashboards, operator tools, co
 
 ## Required Companion Skills
 
+For geometry, follow [Choose the geometry source](docs/visual-fidelity-method.md#choose-the-geometry-source)
+at setup or before the first measurement. Use UI Blueprint when its matching CLI
+bundle is available for the task. If missing, ask whether to install it or proceed
+without it. Honor the user's choice throughout its scope.
+
 When available, also use:
 
 - In Codex, `imagegen` for editing screenshots. In local Claude Code, use the

@@ -1,10 +1,11 @@
 # Visual Fidelity Analysis
 
-- Node type: leaf; Status: Active; Revision: 3; Date: 2026-10-30.
+- Node type: leaf; Status: Active; Revision: 4; Date: 2026-11-04.
 - Authority: user requested capturing the successful image-analysis and
   implementation methods from the current component-polish task in this skill.
   The 2026-10-29 approval extends the visual workflow to SwiftUI and inline corrections.
   The 2026-10-30 refinement requires actionable numeric change notes, not only intent.
+  The 2026-11-04 pairing makes UI Blueprint the preferred geometry source, with explicit install or opt-out.
 - Applies within the [design workflow's scope](imagegen-ui-redesign-workflow.md)
   when matching an accepted reference or correcting visible geometry.
 - Does not prescribe a new design, target-specific dimensions or extra product states.
@@ -17,6 +18,14 @@ appearance, runtime measurements establish actual geometry, and source explains 
 
 ## Required behavior
 
+- During setup or before the first geometry measurement, honor an existing scoped
+  choice. Use a working, compatible UI Blueprint bundle for supported measurements.
+  A missing/incomplete bundle requires an install-or-skip decision before installing
+  or switching measurement sources. Offer only viable options. After an opt-out,
+  name the fallback source and carry the decision through its agreed scope.
+- Measure named edges in one frame kind, coordinate space and unit. Use Blueprint
+  `check` only with a sourced requirement and explicit tolerance. Repeat the
+  measurement on fresh evidence after a fix. A raster reference remains an estimate.
 - Confirm comparable viewport, content, state, theme, typography and scale before
   attributing a difference to code. Record unknowns instead of treating them as facts.
 - Inspect hierarchy and preserved content first, layout and spacing second,
