@@ -99,52 +99,32 @@ To reproduce this story, download the [original inputs](docs/examples/source-inp
 
 ## Use with Claude Code
 
-Paste this installation prompt into **local Claude Code**. The install step needs no OpenAI key
-and makes no image requests. [Claude Code skills](https://code.claude.com/docs/en/skills).
+**Paste this one prompt into local Claude Code.** You can put your key on the
+last line or leave it blank. Claude will reuse a configured key or ask for
+one in the same chat. A key you paste is part of that conversation.
+[Create an OpenAI API key](https://platform.openai.com/api-keys).
 
 ```text
-Install the imagegen-ui-redesign skill from https://github.com/potapenko/imagegen-ui-redesign.git
-in my personal skills directory at ~/.claude/skills/imagegen-ui-redesign.
-The repository root contains SKILL.md. Clone it into that directory, keeping
-the helper and reference files together. Preserve any existing installation.
-Check that Node.js is version 22 or newer and run node imagegen.mjs --help
-from the installed directory. Tell me how to invoke /imagegen-ui-redesign.
-Then follow its "Choose the geometry source" instructions. Use an available,
-compatible UI Blueprint installation. If it is missing, ask me whether to
-install it or use browser/native measurements.
+Install or update https://github.com/potapenko/imagegen-ui-redesign.git
+in ~/.claude/skills/imagegen-ui-redesign for me. Preserve local edits.
+Follow “Claude Code setup” in its SKILL.md. Use my key below if supplied.
+If no key is configured, ask me for it here and finish setup after my reply.
+Handle the commands yourself and confirm when /imagegen-ui-redesign is ready.
+
+My OpenAI API key (optional):
 ```
 
-**Image generation is billed separately by OpenAI.** The helper sends the
-prompt and attached screenshots directly to the OpenAI Images API using
-`gpt-image-2`. Each generated or revised sheet uses your OpenAI API project.
-A part review, whole-card review and retry are separate calls. Use a project
-with API billing and image model access. The OpenAI charges are separate from
-your Claude plan. [Create an OpenAI API key](https://platform.openai.com/api-keys) · [Image pricing](https://developers.openai.com/api/docs/pricing#image-generation).
+Claude saves the key outside the repository in
+`~/.config/imagegen-ui-redesign/openai-api-key` (or under `XDG_CONFIG_HOME`).
+The local setup check is free. When you request a review, each image call sends
+the prompt and selected screenshots to OpenAI and is billed to your OpenAI
+API project separately from your Claude plan. [Image pricing](https://developers.openai.com/api/docs/pricing#image-generation).
 
-Set `OPENAI_API_KEY` in the environment that starts Claude Code. The installer
-never needs its value or a project ID. Keep the key out of chat, Git and
-command history. In Bash or Zsh, run the following line on its own. Paste
-the key at the hidden terminal input, then press Enter.
-
-```sh
-read -rs OPENAI_API_KEY
-```
-
-In the same terminal, export the variable, check it locally and start Claude:
-
-```sh
-export OPENAI_API_KEY
-node "$HOME/.claude/skills/imagegen-ui-redesign/imagegen.mjs" --check
-claude
-```
-
-The check only confirms that the variable is set. The first actual image
-request verifies access and can incur a charge. Open your project, attach
-the approved mockup, and try:
+Once Claude confirms setup, attach your mockup and try:
 
 ```text
 /imagegen-ui-redesign Compare the running card at <local URL> with the attached
-mockup. Use my OpenAI Images API key from the environment for the review sheets.
+mockup. Use my configured OpenAI API key for the review sheets.
 Check the header details and then the whole card. Show me each sheet inline,
 or open it in my local image viewer if this terminal cannot display it.
 ```

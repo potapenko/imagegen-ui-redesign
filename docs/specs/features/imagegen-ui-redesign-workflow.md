@@ -1,6 +1,6 @@
 # ImageGen UI Design and Correction Workflow
 
-- Node type: leaf; Status: Active; Revision: 2026-11-04.1.
+- Node type: leaf; Status: Active; Revision: 2026-11-04.2.
 - User approval, 2026-10-29: Web/SwiftUI correction loop and inline delivery,
   excluding backend work and minor standalone edits, without scripts.
 - User approval, 2026-10-30: preserve/change panels, drafting marks and numeric recipes.
@@ -74,9 +74,9 @@ use focused checks. For detailed matching, follow [Visual Fidelity Analysis](vis
 
 ## Files, failure and delivery
 
-- Codex uses its native image tool. Local Claude Code uses the bundled OpenAI Images API client
-  for generation or ordered multi-image edits. Installation needs no secret. Requests use the
-  operator's environment key, have a timeout and incur OpenAI charges; preflight is local and free.
+- Codex uses its native image tool. In one setup prompt Claude Code installs the bundled client,
+  saves a supplied key privately outside Git or reuses a saved/environment key, and asks in chat
+  if missing. Setup is local. Generation and ordered edits use the user's paid API with a timeout.
 - Follow the image-storage policy in `SKILL.md`: system-temp images, retained originals,
   no agent cleanup or repo artifact directories. Transient non-image evidence has its own policy.
 - Missing ImageGen or runtime proof leaves the affected acceptance pending. Report the limitation.

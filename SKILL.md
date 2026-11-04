@@ -342,12 +342,35 @@ For strict product UIs, add: "Generated image is design evidence only; implement
 mode for existing components. A CLI is optional only when that policy and user
 authority permit it; a missing CLI/API key alone does not prove ImageGen unavailable.
 
-**Local Claude Code.** Use the bundled [image client](imagegen.mjs) with
-Node.js 22+. Run `node "${CLAUDE_SKILL_DIR}/imagegen.mjs" --check` first.
-It checks key presence locally. If the key is missing, direct the user to
-the [setup instructions](README.md#use-with-claude-code). Never request the
-key in chat or print it. Before the first paid call, ensure the user's request
-covers sending the selected inputs to OpenAI and billing their API project.
+### Claude Code setup
+
+Handle setup in the current chat. Check for Node.js 22+ yourself. If it is
+missing, offer to install it with the host's usual package manager and obtain
+any required permission. Run the bundled [image client](imagegen.mjs) from
+the installed skill directory. If the user
+supplies a key in the installation prompt or a reply, save that key first.
+Send it on stdin to `node imagegen.mjs --save-key` using a literal input
+stream (for example, a quoted here-document in Bash).
+Do not pass it as a command argument, echo it in your reply, or write it into
+the project, a prompt file or the installed skill. The client writes a private
+per-user file and reads it on the next invocation.
+
+Run `node imagegen.mjs --check` yourself from that directory. If the user
+left the key field blank and this exits 0, reuse the configured key. Exit 2
+means no key: ask once in this chat, “What is your OpenAI API key for image
+generation?” Wait for the reply, save it, rerun the check and finish setup
+or resume the pending review. Other errors need diagnosis. The saved key takes
+precedence over the existing `OPENAI_API_KEY` fallback. The local check makes
+no API call. Confirm the skill is ready once it passes, then apply the
+[geometry choice](docs/visual-fidelity-method.md#choose-the-geometry-source)
+independently. Optional Blueprint setup does not block saving the key.
+If a later request returns HTTP 401, ask for a replacement key and save it
+through the same flow. Diagnose billing or permissions separately for other statuses.
+
+### Generate a sheet in Claude Code
+
+Before the first paid call, ensure the user's request covers sending the
+selected inputs to OpenAI and billing their API project.
 
 Write the prepared prompt to a task-owned temporary text file. For a comparison,
 attach the actual capture first and the accepted reference second, naming their

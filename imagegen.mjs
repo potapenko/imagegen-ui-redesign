@@ -1,27 +1,71 @@
 import { openAsBlob } from 'node:fs';
-import { mkdtemp, stat, writeFile } from 'node:fs/promises';
-import { tmpdir } from 'node:os';
-import { extname, join } from 'node:path';
+import { mkdir, mkdtemp, readFile, rename, rm, stat, writeFile } from 'node:fs/promises';
+import { randomUUID } from 'node:crypto';
+import { homedir, tmpdir } from 'node:os';
+import { extname, isAbsolute, join } from 'node:path';
 import { text } from 'node:stream/consumers';
 import { parseArgs } from 'node:util';
 
-const usage = 'node imagegen.mjs [--help | --check] [image.png ...] < prompt.txt';
+const usage = 'node imagegen.mjs --help | --check | --save-key (key on stdin) | [image.png ...] < prompt.txt';
 const model = 'gpt-image-2';
 const types = { '.png': 'image/png', '.jpg': 'image/jpeg', '.jpeg': 'image/jpeg', '.webp': 'image/webp' };
+const xdg = process.env.XDG_CONFIG_HOME;
+const settings = join(xdg && isAbsolute(xdg) ? xdg : join(homedir(), '.config'), 'imagegen-ui-redesign');
+const keyFile = join(settings, 'openai-api-key');
+
+function isKeyValue(key) {
+  return Boolean(key) && /^[\x21-\x7e]+$/.test(key) && !/[<>]/.test(key);
+}
+
+async function configuredKey() {
+  try {
+    return (await readFile(keyFile, 'utf8')).trim();
+  } catch (error) {
+    if (error.code !== 'ENOENT') throw error;
+    return process.env.OPENAI_API_KEY?.trim();
+  }
+}
+
+async function saveKey() {
+  const key = (await text(process.stdin)).trim();
+  if (!isKeyValue(key)) {
+    throw new Error('Supply a single API key on standard input.');
+  }
+  await mkdir(settings, { recursive: true, mode: 0o700 });
+  const temporary = join(settings, `.key-${randomUUID()}`);
+  try {
+    await writeFile(temporary, key + '\n', { flag: 'wx', mode: 0o600 });
+    await rename(temporary, keyFile);
+  } finally {
+    await rm(temporary, { force: true });
+  }
+  console.log('OpenAI API key saved.');
+}
 
 async function main() {
   const { values, positionals: images } = parseArgs({
     allowPositionals: true,
-    options: { help: { type: 'boolean', short: 'h' }, check: { type: 'boolean' } },
+    options: {
+      help: { type: 'boolean', short: 'h' }, check: { type: 'boolean' }, 'save-key': { type: 'boolean' },
+    },
   });
   if (values.help) {
     console.log(usage);
     return;
   }
-  const key = process.env.OPENAI_API_KEY?.trim();
-  if (!key) throw new Error('Set OPENAI_API_KEY in the environment that launches Claude Code.');
+  if ((values.check || values['save-key']) && (images.length || (values.check && values['save-key']))) {
+    throw new Error(usage);
+  }
+  if (values['save-key']) return saveKey();
+  const key = await configuredKey();
+  if (!key) {
+    console.error('OpenAI key missing. Ask the user in this chat for their API key, then use --save-key via stdin.');
+    process.exitCode = 2;
+    return;
+  }
+  if (!isKeyValue(key)) throw new Error('Malformed OpenAI API key. Supply a replacement using --save-key.');
   if (values.check) {
-    console.log('OPENAI_API_KEY is present. No request was made or credentials verified.');
+    console.log('OpenAI API key configured. No network request made.');
     return;
   }
   if (process.stdin.isTTY) throw new Error(usage);
