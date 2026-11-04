@@ -50,11 +50,11 @@ We asked for a final sheet with both guides anchored to those top edges. The gui
 
 ## What the team got back
 
-Here is the **actual recording card** from the final docked run. The seven bars are visible, the video fills its 4:3 frame, and Close sits beside the meter. In this layout the browser measured the gap at **18.3 CSS px**, against about **18** in the reference scaled for the docked column. That result belongs to this layout. The two findings in the desktop comparison above are recorded separately.
+In the final docked run, all seven bars were visible, the video filled its 4:3 frame, and Close sat beside the meter. The browser measured the gap at **18.3 CSS px**, against about **18** in the reference scaled for the docked column. The two findings in the desktop comparison above are recorded separately.
 
-![Actual PlayPhrase.me docked recording card with seven input bars beside Close and a centered microphone over the movie](illustrations/runtime-docked-recording-final.png)
+![English illustration of the final PlayPhrase.me recording card with Now repeat, I hear and Done](illustrations/docked-recording-english.webp)
 
-*Original localhost capture in Russian. The title reads “Now repeat”, the live transcript is labeled “I hear”, and the bottom button says “Done”.* [Docked header measurements](illustrations/prompts/10-header-relationships.md) · [Final check across five player states](illustrations/prompts/18-final-whole-card.md).
+*English illustration based on the [original localhost capture](illustrations/runtime-docked-recording-final.png). The measurements come from the running card.* [Docked header measurements](illustrations/prompts/10-header-relationships.md) · [Final check across five player states](illustrations/prompts/18-final-whole-card.md).
 
 This is the handoff we ask for on our team: the running component, its approved reference, and a short account of what matched and what still needs work. After a repair, Codex checks the affected part and its neighbors, then compares the whole component again. The last step matters whenever a change inside one part can move another.
 
