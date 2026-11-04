@@ -1,6 +1,6 @@
 # ImageGen UI Redesign
 
-A coding agent can change a layout, open the app and post a screenshot that still shows the bug. This Codex skill gives the agent a way to check its own work against the mockup you approved. [Install the skill](#try-it-in-codex).
+A coding agent can change a layout, open the app and post a screenshot that still shows the bug. This skill gives the agent a way to check its own work against the mockup you approved. [Use with Codex](#try-it-in-codex) · [Use with Claude Code](#use-with-claude-code).
 
 ![Visual review loop: capture the running UI, compare it with the approved mockup and verify the findings in the app. If a difference remains, fix the code, take a fresh capture and repeat. Show the verified UI when the checks pass.](illustrations/visual-review-loop.webp)
 
@@ -89,3 +89,59 @@ Show the final running UI and tell me which differences are still open.
 For a review without edits, ask Codex to report the differences. For a new design, give it the current screen and describe the change. It shows you a mockup for approval before implementing new visual choices.
 
 To reproduce this story, download the [original inputs](docs/examples/source-inputs.zip) and run the [eight English test prompts](docs/examples/prompts.md). The [full player casebook](illustrations/README.md) also covers video framing, the Repeat button and scrolling in the short floating window.
+
+## Use with Claude Code
+
+Paste this installation prompt into **local Claude Code**. Replace the placeholder
+with the clone URL of this repository. The install step needs no OpenAI key
+and makes no image requests. [Claude Code skills](https://code.claude.com/docs/en/skills).
+
+```text
+Install the imagegen-ui-redesign skill from <paste the repository clone URL here>
+in my personal skills directory at ~/.claude/skills/imagegen-ui-redesign.
+The repository root contains SKILL.md. Clone it into that directory, keeping
+the helper and reference files together. Preserve any existing installation.
+Check that Node.js is version 22 or newer and run node imagegen.mjs --help
+from the installed directory. Tell me how to invoke /imagegen-ui-redesign.
+```
+
+**Image generation is billed separately by OpenAI.** The helper sends the
+prompt and attached screenshots directly to the OpenAI Images API using
+`gpt-image-2`. Each generated or revised sheet uses your OpenAI API project.
+A part review, whole-card review and retry are separate calls. Use a project
+with API billing and image model access. The OpenAI charges are separate from
+your Claude plan. [Create an OpenAI API key](https://platform.openai.com/api-keys) · [Image pricing](https://developers.openai.com/api/docs/pricing#image-generation).
+
+Set `OPENAI_API_KEY` in the environment that starts Claude Code. The installer
+never needs its value or a project ID. Keep the key out of chat, Git and
+command history. In Bash or Zsh, run the following line on its own. Paste
+the key at the hidden terminal input, then press Enter.
+
+```sh
+read -rs OPENAI_API_KEY
+```
+
+In the same terminal, export the variable, check it locally and start Claude:
+
+```sh
+export OPENAI_API_KEY
+node "$HOME/.claude/skills/imagegen-ui-redesign/imagegen.mjs" --check
+claude
+```
+
+The check only confirms that the variable is set. The first actual image
+request verifies access and can incur a charge. Open your project, attach
+the approved mockup, and try:
+
+```text
+/imagegen-ui-redesign Compare the running card at <local URL> with the attached
+mockup. Use my OpenAI Images API key from the environment for the review sheets.
+Check the header details and then the whole card. Show me each sheet inline,
+or open it in my local image viewer if this terminal cannot display it.
+```
+
+Claude Code needs access to the running site or native app to take fresh captures.
+Use the same browser or simulator workflow you normally use in that project.
+We verified skill discovery in Claude Code 2.1.318 and tested both image request
+formats with offline responses. A paid end-to-end image call in Claude Code has
+yet to be verified.

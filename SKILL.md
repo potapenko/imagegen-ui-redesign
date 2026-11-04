@@ -22,12 +22,14 @@ This skill is especially useful for admin panels, dashboards, operator tools, co
 
 When available, also use:
 
-- `imagegen` for edit-mode image generation from screenshots.
+- In Codex, `imagegen` for editing screenshots. In local Claude Code, use the
+  bundled client under [Image Generation](#image-generation).
 - The project's browser workflow for Web capture and visual QA, or its permitted
   native app/Simulator tools for SwiftUI. Do not recreate native UI in a browser.
 - `admin-ui-organizer` for admin, dashboard, review, map, queue, or operator surfaces.
 
-Follow the target repo's own `AGENTS.md`, specs, design system, and safety rules before changing code.
+Follow the target repo's applicable instructions (including `CLAUDE.md` or
+`AGENTS.md`), specs, design system and safety rules before changing code.
 
 ## Core Rule
 
@@ -331,9 +333,33 @@ For strict product UIs, add: "Generated image is design evidence only; implement
 
 ## Image Generation
 
-Use the available `imagegen` skill under its current tool policy. Prefer edit
+**Codex.** Use the available `imagegen` skill under its current tool policy. Prefer edit
 mode for existing components. A CLI is optional only when that policy and user
 authority permit it; a missing CLI/API key alone does not prove ImageGen unavailable.
+
+**Local Claude Code.** Use the bundled [image client](imagegen.mjs) with
+Node.js 22+. Run `node "${CLAUDE_SKILL_DIR}/imagegen.mjs" --check` first.
+It checks key presence locally. If the key is missing, direct the user to
+the [setup instructions](README.md#use-with-claude-code). Never request the
+key in chat or print it. Before the first paid call, ensure the user's request
+covers sending the selected inputs to OpenAI and billing their API project.
+
+Write the prepared prompt to a task-owned temporary text file. For a comparison,
+attach the actual capture first and the accepted reference second, naming their
+roles in the prompt. Additional reference files follow in prompt order:
+
+```sh
+node "${CLAUDE_SKILL_DIR}/imagegen.mjs" "$current_capture" "$accepted_reference" < "$prompt_file"
+```
+
+For a new design, supply the product references. Use no image arguments only
+for text-only generation. Allow up to five minutes for one call. On success
+stdout contains the absolute PNG path. Read that file with Claude's Read tool,
+inspect it, and present it to the user under the Core Rule. Agent-side Read
+alone does not deliver an image to the user. If the client lacks inline display,
+use a visible local viewer only when the user has chosen that delivery method.
+Otherwise report the missing preview and keep the affected acceptance pending.
+Capture the live UI through the project's browser or native tools.
 
 Use explicit timeouts for external ImageGen calls. If a component is very tall and times out, retry that component only with a longer explicit timeout, lower detail, or a smaller crop. Do not wait indefinitely.
 
