@@ -1,8 +1,8 @@
 # ImageGen UI Redesign
 
-Here, **ImageGen** means OpenAI’s image generation and editing tools ([ChatGPT Images 2.5](https://openai.com/index/introducing-chatgpt-images-2-5/) in Codex). The Claude Code integration uses OpenAI’s `gpt-image-2` API model.
-
 A coding agent can change a layout, open the app and post a screenshot that still shows the bug. This skill gives the agent a way to check its own work against the mockup you approved. [Use with Codex](#try-it-in-codex) · [Use with Claude Code](#use-with-claude-code) · [Make it the default for UI work](#make-it-the-default-for-ui-work).
+
+> *ImageGen* is shorthand for OpenAI’s image generation and editing tools. Codex offers [ChatGPT Images 2.5](https://openai.com/index/introducing-chatgpt-images-2-5/). The Claude Code integration uses `gpt-image-2` via the API.
 
 ![Visual review loop: capture the running UI, compare it with the approved mockup and verify the findings in the app. If a difference remains, fix the code, take a fresh capture and repeat. Show the verified UI when the checks pass.](illustrations/visual-review-loop.webp)
 
