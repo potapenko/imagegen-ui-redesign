@@ -1,6 +1,12 @@
 # ImageGen UI Redesign
 
-A Codex skill for matching a running interface to an approved mockup. Codex captures the UI, compares its parts with ImageGen, checks the findings in the app, and brings back a fresh view of the whole component after each fix. [Install the skill](#try-it-in-codex).
+A coding agent can change a layout, open the app and post a screenshot that still shows the bug. This Codex skill gives the agent a way to check its own work against the mockup you approved. [Install the skill](#try-it-in-codex).
+
+![Visual review loop: capture the running UI, compare it with the approved mockup and verify the findings in the app. If a difference remains, fix the code, take a fresh capture and repeat. Show the verified UI when the checks pass.](illustrations/visual-review-loop.webp)
+
+Codex gives ImageGen the approved mockup, a capture of the running component and any measurements it already has. ImageGen illustrates the comparison and can flag other differences. The developer and the agent see the same proposed correction on the sheet. In the player below, an arrow marks the empty space between the last volume bar and Close so the agent knows which two edges to measure.
+
+If the measurement confirms a mismatch, the agent fixes the code, captures the affected parts and compares the whole component again with the **same mockup**. That fresh capture shows whether the fix worked and whether it moved a neighboring control. The review stays open while a required state is missing or a material difference remains.
 
 ## How a gap survived two visual reviews
 
