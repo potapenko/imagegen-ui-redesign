@@ -1,6 +1,6 @@
 # ImageGen UI Design and Correction Workflow
 
-- Node type: leaf; Status: Active; Revision: 2026-11-04.2.
+- Node type: leaf; Status: Active; Revision: 2026-11-10.1.
 - User approval, 2026-10-29: Web/SwiftUI correction loop and inline delivery,
   excluding backend work and minor standalone edits, without scripts.
 - User approval, 2026-10-30: preserve/change panels, drafting marks and numeric recipes.
@@ -16,8 +16,8 @@ use focused checks. For detailed matching, follow [Visual Fidelity Analysis](vis
 
 ## Design and correction loop
 
-1. Pin the scoped component, its parts, relationships, states and sizes. Capture existing UI
-   or use product references/tokens for a new component and identify it as new.
+1. Inventory parts × states × sizes under [UI State Coverage](ui-state-coverage.md).
+   Pin their references/contracts; capture existing UI or label a new component as new.
 2. Show the mockup inline and obtain acceptance for new choices. Reuse an accepted target.
 3. Capture the real component and containing screen at matching state, theme and scale.
 4. For composite UI, compare matched crops of each scoped part through ImageGen first.
@@ -67,8 +67,8 @@ use focused checks. For detailed matching, follow [Visual Fidelity Analysis](vis
   app/Simulator; browser recreation, CSS and console checks cannot replace it.
 - Target instructions govern tools, approvals and verification. Use relevant
   build and visible-state checks; presentation changes alone do not require logic suites.
-- For global work keep coverage by screen, viewport, processed/current/remaining
-  components and constraints. Default large batches contain up to five components.
+- Track individual states and transitions, including expanded/nested content, per
+  the coverage contract. Default large batches contain up to five components.
   Preserve before/reference/correction/after evidence and full-screen context per batch;
   a new component has no fabricated before capture. Partial coverage is not completion.
 

@@ -4,6 +4,15 @@ Read before each comparison/correction generation. Fill the fields from the
 current task, then append both mandatory blocks to the main skill prompt. They supplement
 the required current/target views and lower Preserve/Change panels.
 
+Select the case from the skill's state inventory before filling this prompt.
+Supply `case ID | component/part | visible state | required size | reference basis`.
+Match actual and target states, including nested disclosure and loading/error or
+interaction variants. A collapsed reference cannot validate expanded descendants.
+If the state lacks a reference, design it under the core approval rules first.
+For batched states, label each actual/reference pair and give each its own result;
+split the sheet if any state or annotation becomes unreadable. A generated pass
+applies only to the named cases and does not prove their runtime transitions.
+
 For a composite UI, run the part sheets first. On each: “Compare both crops
 of this part. For each named element and relationship, show the two edges,
 actual and target with units/basis, and the outcome. Keep neighbors in view.”

@@ -45,6 +45,8 @@ Work component by component:
 1. Pin the whole component in scope, the accepted reference(s) for each required
    state and size, and applicable product/design contracts. For a composite,
    name its visible parts and the relationships between them before reviewing.
+   First build the state inventory under Coverage Loop below; repeat this core
+   loop for every applicable item, not only the initially visible state.
    For a new component use existing product references and tokens until there
    is a running UI.
 2. Generate the annotated comparison sheet defined in the ImageGen Prompt Template
@@ -89,7 +91,8 @@ Work component by component:
    valid for the final UI, each material discrepancy is resolved against real
    evidence, and the containing screen works in context. Show the actual final
    component and screen inline. Any missing part or whole comparison leaves
-   its scope pending.
+   its scope pending. A component is not verified while any applicable state or
+   required transition remains unverified, even if its default view matches.
 
 ImageGen proposes corrections; it does not grant human acceptance or prove that
 the implementation works. A rejected generation does not authorize changing the
@@ -106,25 +109,48 @@ generic audit or impose another project's dimensions and workarounds.
 
 ## Coverage Loop
 
-For global redesign work, maintain a lightweight coverage ledger before each batch:
+Before design or implementation, read [UI State Coverage](docs/specs/features/ui-state-coverage.md)
+and inventory the scoped components, subparts, expected states and required sizes.
+Use the existing task registry; a small table suffices for one component. Global
+work groups these items by screen/batch, rather than replacing them with a single
+"component done" flag:
 
 ```text
-Route/screen:
-Viewport:
-Components already processed:
-Components in this batch:
-Remaining components:
-Known constraints:
-Verification target:
+Case ID: component/part + state + required size
+Contract/source; trigger → expected result:
+Reference + approval basis (including scoped standing acceptance):
+Implementation revision; actual state capture + content/theme/size:
+Parts/relationships ImageGen result; whole-state ImageGen result:
+Runtime transition result; containing-screen result:
+Status: pending / in-progress / verified / blocked / N/A with reason
+Open findings, missing evidence and next action:
 ```
+
+Open disclosures, menus, overlays, tabs and nested panels during discovery within
+task safety limits. Cover applicable interaction, input, data and async states,
+including empty/error/loading, focus/selection/disabled, long content and overflow.
+A closed view proves nothing about its hidden body. Split large open groups into
+parts, then check the whole expanded component. Design missing visible states
+through ImageGen; don't silently extrapolate an open body from a closed mockup.
+Newly discovered states enter the same loop. Verify transitions in the running UI
+as well as their visual endpoints; generated images cannot prove focus return or
+preserved selection/scroll. Standing design approval never waives these checks.
+
+Cover meaningful combinations, not an arbitrary Cartesian product. Reuse unchanged
+state-specific primitive evidence only with an explicit equivalence basis and
+instance composition/transition checks. After edits, reopen affected states,
+transitions and neighbors; repeat their fresh parts/whole comparisons. Keep valid
+unaffected evidence. Missing access/evidence means pending, not inapplicable.
 
 Continue with the next unprocessed component or screen until the requested scope is actually covered. If the work is too large for one turn, report the completed batch, saved artifacts, and the next batch target instead of claiming the global redesign is finished.
 
 For a new project, start by inventorying the interface:
 
 - list routes/screens reachable from navigation, menus, tabs, drawers, and major workflow steps;
-- identify repeated component families once, then process the family exemplar and one risky variant;
-- mark each screen as `unseen`, `cropped`, `referenced`, `implemented`, `component-verified`, or `screen-verified`;
+- identify repeated families once, map every instance's applicable states, and reuse
+  equivalent evidence under the coverage contract; review distinct variants separately;
+- derive screen progress from state cases; reference approval or implementation
+  alone cannot mark a component or screen verified;
 - keep ids, paths, raw JSON, and machine keys as provenance only, never as the main visible meaning;
 - resume from the ledger after interruption instead of restarting from the first screen.
 
@@ -288,6 +314,8 @@ Use case: ui-mockup
 Asset type: component layout reference
 Primary request: <Correct fidelity to the accepted reference, or redesign within the user's requested scope>.
 Component purpose: <what this component does>
+State case ID and visible state: <include expanded/nested content and relevant interaction/data state>
+Required size; state-specific reference/approval basis: <identify exact matching inputs>
 Primary user decision: <what the user must decide or accomplish>
 Inputs: <real current crop when it exists; product/accepted references with each role identified>
 Required output layout: four regions in one image, not two UI pictures alone.
@@ -324,7 +352,7 @@ Improve:
 - typography scale;
 - row/card/table composition;
 - action placement and priority;
-- collapsed technical details;
+- technical details in both collapsed and expanded states, on their respective state sheets;
 - long text handling.
 Constraints:
 - do not invent product state, counts, ids, routes, actions, or data;
@@ -466,7 +494,10 @@ Before accepting a component:
 - Long text does not clip, overlap, or push controls into other columns.
 - Tables keep stable columns and row rhythm.
 - Technical details are muted or collapsed.
-- Empty, error, pending, populated, and edge states are preserved or explicitly out of scope.
+- Every applicable state has its own coverage outcome, including expanded/nested,
+  interaction and data states. Any N/A or scope exclusion has an explicit basis.
+- Required transitions work; no hidden child or pending state is covered by a
+  default-state screenshot or a general "component verified" label.
 - The component works inside the full route, not only as an isolated crop.
 
 ## Verification
@@ -477,8 +508,8 @@ loop; it is not a separate acceptance process.
 
 For Web:
 
-1. Open the changed route.
-2. Capture the updated component crops.
+1. Open the changed route and exercise each affected state case and required transition.
+2. Capture the updated component crops in those states, including expanded content.
 3. Capture the full route.
 4. Check console errors.
 5. Inspect screenshots for clipped text, overlapping badges, broken columns, misleading primary actions, or invented UI state.
@@ -510,7 +541,8 @@ Do not mark the broader redesign done just because one screen, one batch, or one
 
 Report:
 
-- which components/screens were processed;
+- which components/screens and state IDs were verified, remain pending or were
+  inapplicable with reasons; distinguish design acceptance from runtime/visual QA;
 - inline images required by the Core Rule, with before/reference/correction/actual
   result clearly distinguished; paths may supplement but never replace delivery;
 - what code/spec files changed;
